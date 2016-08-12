@@ -1,12 +1,12 @@
 /*
 	Name: cTab_fnc_open
-	
+
 	Author(s):
 		Gundy
-	
+
 	Description:
 		Handles dialog / display startup and registering of event handlers
-		
+
 		This function will define cTabIfOpen, using the following format:
 			Parameter 0: Interface type, 0 = Main, 1 = Secondary, 2 = Tertiary
 			Parameter 1: Name of uiNameSpace variable for display / dialog (i.e. "cTab_Tablet_dlg")
@@ -17,16 +17,16 @@
 			Parameter 6: ID of registered eventhandler for Draw3D event (nil if no EH is registered)
 			Parameter 7: ID of registered eventhandler A.C.E medical_onUnconscious event (nil if no EH is registered)
 			Parameter 8: ID of registered eventhandler A.C.E playerInventoryChanged event (nil if no EH is registered)
-	
+
 	Parameters:
 		0: INTEGER - Interface type, 0 = Main, 1 = Secondary
 		1: STRING  - Name of uiNameSpace variable for display / dialog (i.e. "cTab_Tablet_dlg")
 		2: OBJECT  - Unit to register killed eventhandler for
 		3: OBJECT  - Vehicle to register GetOut eventhandler for
-	
+
 	Returns:
 		BOOLEAN - TRUE
-	
+
 	Example:
 		// open TAD display as main interface type
 		[0,"cTab_TAD_dsp",player,vehicle player] call cTab_fnc_open;
@@ -63,16 +63,16 @@ if (_displayName in ["cTab_TAD_dsp","cTab_TAD_dlg"]) then {
 			_display = uiNamespace getVariable (cTabIfOpen select 1);
 			_veh = vehicle cTab_player;
 			_playerPos = getPosASL _veh;
-		
+
 			// update time
 			(_display displayCtrl IDC_CTAB_OSD_TIME) ctrlSetText call cTab_fnc_currentTime;
-			
+
 			// update grid position
 			(_display displayCtrl IDC_CTAB_OSD_GRID) ctrlSetText format ["%1", mapGridPosition _playerPos];
-			
+
 			// update current heading
 			(_display displayCtrl IDC_CTAB_OSD_DIR_DEGREE) ctrlSetText format ["%1°",[direction _veh,3] call CBA_fnc_formatNumber];
-			
+
 			// update current elevation (ASL) on TAD
 			(_display displayCtrl IDC_CTAB_OSD_ELEVATION) ctrlSetText format ["%1m",[round (_playerPos select 2),4] call CBA_fnc_formatNumber];
 		}]
@@ -85,10 +85,10 @@ if (_displayName in ["cTab_TAD_dsp","cTab_TAD_dlg"]) then {
 			_heading = direction _veh;
 			// update time
 			(_display displayCtrl IDC_CTAB_OSD_TIME) ctrlSetText call cTab_fnc_currentTime;
-			
+
 			// update grid position
-			(_display displayCtrl IDC_CTAB_OSD_GRID) ctrlSetText format ["%1", mapGridPosition getPosASL _veh];
-			
+			(_display displayCtrl IDC_CTAB_OSD_GRID) ctrlSetText format ["%1", mapGridPosition getPosWorld _veh];
+
 			// update current heading
 			(_display displayCtrl IDC_CTAB_OSD_DIR_DEGREE) ctrlSetText format ["%1°",[_heading,3] call CBA_fnc_formatNumber];
 			(_display displayCtrl IDC_CTAB_OSD_DIR_OCTANT) ctrlSetText format ["%1",[_heading] call cTab_fnc_degreeToOctant];
