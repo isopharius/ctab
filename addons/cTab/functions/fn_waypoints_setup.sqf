@@ -3,7 +3,6 @@ private["_event", "_display", "_unit", "_ttypes", "_target","_marker_name"];
 
    if (_event == "onLoad") then
    {
-		_pgroup = group player;
 		_unit = vehicle player;
 
 		(_display displayCtrl IDC_CTAB_SCREEN) ctrlMapAnimAdd [0, 1, getPosWorld _unit];
@@ -11,7 +10,7 @@ private["_event", "_display", "_unit", "_ttypes", "_target","_marker_name"];
 
 		[_unit]spawn
 		{
-            private["_unit", "_ttypes", "_target"];
+			_pgroup = group player;
             _unit = _this select 0;
 
 			for [{_i=0},{_i<10},{_i=_i+1}] do
