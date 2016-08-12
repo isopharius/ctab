@@ -1,0 +1,99 @@
+private["_event", "_display", "_unit", "_ttypes", "_target","_marker_name"];
+   _event = _this select 0;
+
+   if (_event == "onLoad") then
+   {
+		_pgroup = group player;
+		_unit = vehicle player;
+
+		(_display displayCtrl IDC_CTAB_SCREEN) ctrlMapAnimAdd [0, 1, getPosWorld _unit];
+		ctrlMapAnimCommit (_display displayCtrl IDC_CTAB_SCREEN);
+
+		[_unit]spawn
+		{
+            private["_unit", "_ttypes", "_target"];
+            _unit = _this select 0;
+
+			for [{_i=0},{_i<10},{_i=_i+1}] do
+			{
+				[format["mk_wp_lnk%1", _i], [0,0], "RECTANGLE", [0,0], "COLOR:", "ColorWhite"] call CBA_fnc_createMarker;
+			};
+
+			for [{_i=0},{_i<10},{_i=_i+1}] do
+			{
+				[format["mk_wp_cir%1", _i], [0,0], "ICON", [0,0], "COLOR:", "ColorWhite", "TYPE:", "mil_circle"] call CBA_fnc_createMarker;
+			};
+
+			["mk_wp_dir",  getPosWorld _unit, "ICON", [0.65,0.65], "COLOR:", "ColorWhite", "TYPE:", "waypoint"] call CBA_fnc_createMarker;
+            "mk_wp_dir" setMarkerDirLocal (getDir _unit)-90;
+
+            Sleep 0.5;
+
+            while {!isNull (findDisplay 1755424)} do
+            {
+				_wps = waypoints _pgroup;
+				_wp = currentWaypoint _pgroup;
+				_posa = [getPosWorld _unit];
+				_types = ["None"];
+
+				if ((count _wps > 1) && (_wp < count _wps)) then
+				{
+					for [{_i=_wp},{_i < (count _wps)},{_i=_i+1}] do
+					{
+						_posa = _posa + [getWPPos [_pgroup, _i]];
+						_types = _types + [waypointType [_pgroup, _i]];
+					};
+				};
+
+				for [{_i=0},{_i<10},{_i=_i+1}] do
+				{
+					if ((_i < (count _wps - 1)) && (count _posa > _i + 1)) then
+					{
+						_poso = _posa select _i;
+						_post = _posa select _i + 1;
+
+						_ang = ((_post select 0)-(_poso select 0)) atan2 ((_post select 1)-(_poso select 1));
+						_dist = sqrt (((_post select 0)-(_poso select 0))^2 + ((_post select 1)-(_poso select 1))^2);
+
+						format["mk_wp_lnk%1", _i] setMarkerPosLocal [(_poso select 0)+sin(_ang)*_dist/2, (_poso select 1)+cos(_ang)*_dist/2];
+						format["mk_wp_lnk%1", _i] setMarkerDirLocal _ang;
+						format["mk_wp_lnk%1", _i] setMarkerSizeLocal [10, _dist/2];
+
+						format["mk_wp_cir%1", _i] setMarkerPosLocal _post;
+						format["mk_wp_cir%1", _i] setMarkerSizeLocal [0.6,0.6];
+						_txt = format["%1 - %2 Km", (_types select _i + 1), floor((_post distance _unit)/100)/10];
+						format["mk_wp_cir%1", _i] setMarkerTextLocal _txt;
+					}
+					else
+					{
+						format["mk_wp_lnk%1", _i] setMarkerSizeLocal [0,0];
+						format["mk_wp_cir%1", _i] setMarkerSizeLocal [0,0];
+						format["mk_wp_cir%1", _i] setMarkerTextLocal "";
+					};
+				};
+
+               "mk_wp_dir" setMarkerDirLocal (getDir _unit)-90;
+               "mk_wp_dir" setMarkerPosLocal (getPosWorld _unit);
+
+				Sleep 0.1;
+			};
+		};
+	}
+	else
+	{
+		deleteMarkerLocal "mk_wp_dir";
+		for [{_i=0},{_i<10},{_i=_i+1}] do
+		{
+			deleteMarkerLocal format["mk_wp_lnk%1", _i];
+			deleteMarkerLocal format["mk_wp_cir%1", _i];
+		};
+
+		if (!isNil "last_onmapsclick") then
+		{
+			onMapSingleClick last_onmapsclick;
+		}
+		else
+		{
+			onMapSingleClick "";
+		};
+	};

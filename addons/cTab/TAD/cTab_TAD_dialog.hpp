@@ -14,8 +14,8 @@ class cTab_TAD_dlg
 {
 	idd = 1755424;
 	movingEnable = true;
-	onLoad = "_this call cTab_fnc_onIfOpen;";
-	onUnload = "[] call cTab_fnc_onIfclose;";
+	onLoad = "_this call cTab_fnc_onIfOpen;['onload'] call cTab_fnc_waypoints_setup";
+	onUnload = "[] call cTab_fnc_onIfclose;['onUnload'] call cTab_fnc_waypoints_setup";
 	onKeyDown = "_this call cTab_fnc_onIfKeyDown;";
 	objects[] = {};
 	class controlsBackground
@@ -25,6 +25,7 @@ class cTab_TAD_dlg
 		{
 			idc = IDC_CTAB_SCREEN;
 			onDraw = "nop = _this call cTabOnDrawbftTADdialog;";
+      		onMouseButtonDown = "[""onMapClick"", _this] call cTab_fnc_waypoints_add";
 			onMouseButtonDblClick = "_ok = [3300,_this] execVM '\cTab\shared\cTab_markerMenu_load.sqf';";
 			onMouseMoving = "cTabCursorOnMap = _this select 3;cTabMapCursorPos = _this select 0 ctrlMapScreenToWorld [_this select 1,_this select 2];";
 		};
@@ -37,6 +38,7 @@ class cTab_TAD_dlg
 		{
 			idc = IDC_CTAB_SCREEN_BLACK;
 			onDraw = "nop = _this call cTabOnDrawbftTADdialog;";
+      		onMouseButtonDown = "[""onMapClick"", _this] call cTab_fnc_waypoints_add";
 			onMouseButtonDblClick = "_ok = [3300,_this] execVM '\cTab\shared\cTab_markerMenu_load.sqf';";
 			onMouseMoving = "cTabCursorOnMap = _this select 3;cTabMapCursorPos = _this select 0 ctrlMapScreenToWorld [_this select 1,_this select 2];";
 		};

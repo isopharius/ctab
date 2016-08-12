@@ -55,6 +55,8 @@ class CfgFunctions
 			class updateInterface{};
 			class updateUserMarkerList{};
 			class userMenuSelect{};
+			class waypoints_add{};
+			class waypoints_setup{};
 		};
 	};
 };
