@@ -76,7 +76,7 @@ Requires the scale of the map control to be at 0.001
 */
 call {
 	private ["_displayName","_display","_mapCtrl","_mapScreenPos","_mapScreenX_left","_mapScreenH","_mapScreenY_top","_mapScreenY_middle","_mapWorldY_top","_mapWorldY_middle"];
-	
+
 	_displayName = "cTab_mapSize_dsp";
 	cTabRscLayer cutRsc [_displayName,"PLAIN",0, false];
 	while {isNull (uiNamespace getVariable _displayName)} do {};
@@ -90,9 +90,9 @@ call {
 	_mapScreenX_left = _mapScreenPos select 0;
 	// Find the screen height
 	_mapScreenH	= _mapScreenPos select 3;
-	// Find the screen coordinate for top Y 
+	// Find the screen coordinate for top Y
 	_mapScreenY_top = _mapScreenPos select 1;
-	// Find the screen coordinate for middle Y 
+	// Find the screen coordinate for middle Y
 	_mapScreenY_middle = _mapScreenY_top + _mapScreenH / 2;
 
 	// Get world coordinate for top Y in meters
@@ -384,7 +384,7 @@ cTab_fnc_onIfMainPressed = {
 		// close Secondary / Tertiary
 		call cTab_fnc_close;
 	};
-	
+
 	_player = cTab_player;
 	_vehicle = vehicle _player;
 	_interfaceName = call {
@@ -402,7 +402,7 @@ cTab_fnc_onIfMainPressed = {
 		// default
 		""
 	};
-	
+
 	if (_interfaceName != "" && _interfaceName != _previousInterface) exitWith {
 		// queue the start up of the interface as we might still have one closing down
 		[{
@@ -413,7 +413,7 @@ cTab_fnc_onIfMainPressed = {
 		},0,[0,_interfaceName,_player,_vehicle]] call CBA_fnc_addPerFrameHandler;
 		true
 	};
-	
+
 	false
 };
 
@@ -444,7 +444,7 @@ cTab_fnc_onIfSecondaryPressed = {
 		// close Main / Tertiary
 		call cTab_fnc_close;
 	};
-	
+
 	_player = cTab_player;
 	_vehicle = vehicle _player;
 	_interfaceName = call {
@@ -462,7 +462,7 @@ cTab_fnc_onIfSecondaryPressed = {
 		// default
 		""
 	};
-	
+
 	if (_interfaceName != "" && _interfaceName != _previousInterface) exitWith {
 		// queue the start up of the interface as we might still have one closing down
 		[{
@@ -473,7 +473,7 @@ cTab_fnc_onIfSecondaryPressed = {
 		},0,[1,_interfaceName,_player,_vehicle]] call CBA_fnc_addPerFrameHandler;
 		true
 	};
-	
+
 	false
 };
 
@@ -503,7 +503,7 @@ cTab_fnc_onIfTertiaryPressed = {
 		// close Main / Secondary
 		call cTab_fnc_close;
 	};
-	
+
 	_player = cTab_player;
 	_vehicle = vehicle _player;
 	_interfaceName = call {
@@ -521,7 +521,7 @@ cTab_fnc_onIfTertiaryPressed = {
 		// default
 		""
 	};
-	
+
 	if (_interfaceName != "" && _interfaceName != _previousInterface) exitWith {
 		// queue the start up of the interface as we might still have one closing down
 		[{
@@ -532,7 +532,7 @@ cTab_fnc_onIfTertiaryPressed = {
 		},0,[2,_interfaceName,_player,_vehicle]] call CBA_fnc_addPerFrameHandler;
 		true
 	};
-	
+
 	false
 };
 
@@ -629,7 +629,7 @@ Returns TRUE
 cTab_fnc_mode_toggle = {
 	_displayName = _this select 0;
 	_mode = [_displayName,"mode"] call cTab_fnc_getSettings;
-	
+
 	call {
 		if (_displayName == "cTab_Android_dlg") exitWith {
 			call {
@@ -650,12 +650,12 @@ Returns TRUE
 cTab_fnc_toggleNightMode = {
 	_displayName = _this select 0;
 	_nightMode = [_displayName,"nightMode"] call cTab_fnc_getSettings;
-	
+
 	if (_nightMode != 2) then {
 		if (_nightMode == 0) then {_nightMode = 1} else {_nightMode = 0};
 		[_displayName,[["nightMode",_nightMode]]] call cTab_fnc_setSettings;
 	};
-	
+
 	true
 };
 
@@ -671,7 +671,7 @@ cTab_fnc_incBrightness = {
 	// make sure brightness is not larger than 1
 	if (_brightness > 1) then {_brightness = 1};
 	[_displayName,[["brightness",_brightness]]] call cTab_fnc_setSettings;
-	
+
 	true
 };
 
@@ -687,7 +687,7 @@ cTab_fnc_decBrightness = {
 	// make sure brightness is not larger than 0.5
 	if (_brightness < 0.5) then {_brightness = 0.5};
 	[_displayName,[["brightness",_brightness]]] call cTab_fnc_setSettings;
-	
+
 	true
 };
 
@@ -707,24 +707,24 @@ cTab_fnc_txt_size_dec = {
 cTabOnDrawbft = {
 	_cntrlScreen = _this select 0;
 	_display = ctrlParent _cntrlScreen;
-	
+
 	cTabMapWorldPos = [_cntrlScreen] call cTab_fnc_ctrlMapCenter;
 	cTabMapScale = ctrlMapScale _cntrlScreen;
 
 	[_cntrlScreen,true] call cTab_fnc_drawUserMarkers;
 	[_cntrlScreen,0] call cTab_fnc_drawBftMarkers;
-	
+
 	// draw directional arrow at own location
 	_veh = vehicle cTab_player;
-	_playerPos = getPosASL _veh;
+	_playerPos = getPosWorld _veh;
 	_heading = direction _veh;
 	_cntrlScreen drawIcon ["\A3\ui_f\data\map\VehicleIcons\iconmanvirtual_ca.paa",cTabMicroDAGRfontColour,_playerPos,cTabTADownIconBaseSize,cTabTADownIconBaseSize,_heading,"", 1,cTabTxtSize,"TahomaB","right"];
-	
+
 	// update hook information
 	if (cTabDrawMapTools) then {
 		[_display,_cntrlScreen,_playerPos,cTabMapCursorPos,0,false] call cTab_fnc_drawHook;
 	};
-	
+
 	true
 };
 
@@ -732,24 +732,24 @@ cTabOnDrawbft = {
 cTabOnDrawbftVeh = {
 	_cntrlScreen = _this select 0;
 	_display = ctrlParent _cntrlScreen;
-	
+
 	cTabMapWorldPos = [_cntrlScreen] call cTab_fnc_ctrlMapCenter;
 	cTabMapScale = ctrlMapScale _cntrlScreen;
-	
+
 	[_cntrlScreen,true] call cTab_fnc_drawUserMarkers;
 	[_cntrlScreen,0] call cTab_fnc_drawBftMarkers;
-	
+
 	// draw directional arrow at own location
 	_veh = vehicle cTab_player;
-	_playerPos = getPosASL _veh;
+	_playerPos = getPosWorld _veh;
 	_heading = direction _veh;
 	_cntrlScreen drawIcon ["\A3\ui_f\data\map\VehicleIcons\iconmanvirtual_ca.paa",cTabMicroDAGRfontColour,_playerPos,cTabTADownIconBaseSize,cTabTADownIconBaseSize,_heading,"", 1,cTabTxtSize,"TahomaB","right"];
-	
+
 	// update hook information
 	if (cTabDrawMapTools) then {
 		[_display,_cntrlScreen,_playerPos,cTabMapCursorPos,0,false] call cTab_fnc_drawHook;
 	};
-	
+
 	true
 };
 
@@ -757,27 +757,27 @@ cTabOnDrawbftVeh = {
 cTabOnDrawbftTAD = {
 	// is disableSerialization really required? If so, not sure this is the right place to call it
 	disableSerialization;
-	
+
 	_cntrlScreen = _this select 0;
 	_display = ctrlParent _cntrlScreen;
-	
+
 	// current position
 	_veh = vehicle cTab_player;
-	_playerPos = getPosASL _veh;
+	_playerPos = getPosWorld _veh;
 	_heading = direction _veh;
 	// change scale of map and centre to player position
 	_cntrlScreen ctrlMapAnimAdd [0, cTabMapScale, _playerPos];
 	ctrlMapAnimCommit _cntrlScreen;
-	
+
 	[_cntrlScreen,false] call cTab_fnc_drawUserMarkers;
 	[_cntrlScreen,1] call cTab_fnc_drawBftMarkers;
-	
+
 	// draw vehicle icon at own location
 	_cntrlScreen drawIcon [cTabPlayerVehicleIcon,cTabTADfontColour,_playerPos,cTabTADownIconBaseSize,cTabTADownIconBaseSize,_heading,"", 1,cTabTxtSize,"TahomaB","right"];
-	
+
 	// draw TAD overlay (two circles, one at full scale, the other at half scale + current heading)
 	_cntrlScreen drawIcon ["\cTab\img\TAD_overlay_ca.paa",cTabTADfontColour,_playerPos,250,250,_heading,"",1,cTabTxtSize,"TahomaB","right"];
-	
+
 	true
 };
 
@@ -785,22 +785,22 @@ cTabOnDrawbftTAD = {
 cTabOnDrawbftTADdialog = {
 	// is disableSerialization really required? If so, not sure this is the right place to call it
 	disableSerialization;
-	
+
 	_cntrlScreen = _this select 0;
 	_display = ctrlParent _cntrlScreen;
-	
+
 	cTabMapWorldPos = [_cntrlScreen] call cTab_fnc_ctrlMapCenter;
 	cTabMapScale = ctrlMapScale _cntrlScreen;
-	
+
 	[_cntrlScreen,true] call cTab_fnc_drawUserMarkers;
 	[_cntrlScreen,1] call cTab_fnc_drawBftMarkers;
-	
+
 	// draw vehicle icon at own location
 	_veh = vehicle cTab_player;
-	_playerPos = getPosASL _veh;
+	_playerPos = getPosWorld _veh;
 	_heading = direction _veh;
 	_cntrlScreen drawIcon [cTabPlayerVehicleIcon,cTabTADfontColour,_playerPos,cTabTADownIconScaledSize,cTabTADownIconScaledSize,_heading,"", 1,cTabTxtSize,"TahomaB","right"];
-	
+
 	// update hook information
 	call {
 		if (cTabDrawMapTools) exitWith {
@@ -815,24 +815,24 @@ cTabOnDrawbftTADdialog = {
 cTabOnDrawbftAndroid = {
 	_cntrlScreen = _this select 0;
 	_display = ctrlParent _cntrlScreen;
-	
+
 	cTabMapWorldPos = [_cntrlScreen] call cTab_fnc_ctrlMapCenter;
 	cTabMapScale = ctrlMapScale _cntrlScreen;
 
 	[_cntrlScreen,true] call cTab_fnc_drawUserMarkers;
 	[_cntrlScreen,0] call cTab_fnc_drawBftMarkers;
-	
+
 	// draw directional arrow at own location
 	_veh = vehicle cTab_player;
-	_playerPos = getPosASL _veh;
+	_playerPos = getPosWorld _veh;
 	_heading = direction _veh;
 	_cntrlScreen drawIcon ["\A3\ui_f\data\map\VehicleIcons\iconmanvirtual_ca.paa",cTabMicroDAGRfontColour,_playerPos,cTabTADownIconBaseSize,cTabTADownIconBaseSize,_heading,"", 1,cTabTxtSize,"TahomaB","right"];
-	
+
 	// update hook information
 	if (cTabDrawMapTools) then {
 		[_display,_cntrlScreen,_playerPos,cTabMapCursorPos,0,false] call cTab_fnc_drawHook;
 	};
-	
+
 	true
 };
 
@@ -840,21 +840,21 @@ cTabOnDrawbftAndroid = {
 cTabOnDrawbftAndroidDsp = {
 	_cntrlScreen = _this select 0;
 	_display = ctrlParent _cntrlScreen;
-	
+
 	_veh = vehicle cTab_player;
-	_playerPos = getPosASL _veh;
+	_playerPos = getPosWorld _veh;
 	_heading = direction _veh;
-	
+
 	// change scale of map and centre to player position
 	_cntrlScreen ctrlMapAnimAdd [0, cTabMapScale, _playerPos];
 	ctrlMapAnimCommit _cntrlScreen;
-	
+
 	[_cntrlScreen,false] call cTab_fnc_drawUserMarkers;
 	[_cntrlScreen,0] call cTab_fnc_drawBftMarkers;
-	
+
 	// draw directional arrow at own location
 	_cntrlScreen drawIcon ["\A3\ui_f\data\map\VehicleIcons\iconmanvirtual_ca.paa",cTabMicroDAGRfontColour,_playerPos,cTabTADownIconBaseSize,cTabTADownIconBaseSize,_heading,"", 1,cTabTxtSize,"TahomaB","right"];
-	
+
 	true
 };
 
@@ -862,21 +862,21 @@ cTabOnDrawbftAndroidDsp = {
 cTabOnDrawbftmicroDAGRdsp = {
 	_cntrlScreen = _this select 0;
 	_display = ctrlParent _cntrlScreen;
-	
+
 	// current position
 	_veh = vehicle cTab_player;
-	_playerPos = getPosASL _veh;
+	_playerPos = getPosWorld _veh;
 	_heading = direction _veh;
 	// change scale of map and centre to player position
 	_cntrlScreen ctrlMapAnimAdd [0, cTabMapScale, _playerPos];
 	ctrlMapAnimCommit _cntrlScreen;
-	
+
 	[_cntrlScreen,false] call cTab_fnc_drawUserMarkers;
 	[_cntrlScreen,cTabMicroDAGRmode] call cTab_fnc_drawBftMarkers;
-	
+
 	// draw directional arrow at own location
 	_cntrlScreen drawIcon ["\A3\ui_f\data\map\VehicleIcons\iconmanvirtual_ca.paa",cTabMicroDAGRfontColour,_playerPos,cTabTADownIconBaseSize,cTabTADownIconBaseSize,_heading,"", 1,cTabTxtSize,"TahomaB","right"];
-	
+
 	true
 };
 
@@ -884,26 +884,26 @@ cTabOnDrawbftmicroDAGRdsp = {
 cTabOnDrawbftMicroDAGRdlg = {
 	_cntrlScreen = _this select 0;
 	_display = ctrlParent _cntrlScreen;
-	
+
 	cTabMapWorldPos = [_cntrlScreen] call cTab_fnc_ctrlMapCenter;
 	cTabMapScale = ctrlMapScale _cntrlScreen;
-	
+
 	// current position
 	_veh = vehicle cTab_player;
-	_playerPos = getPosASL _veh;
+	_playerPos = getPosWorld _veh;
 	_heading = direction _veh;
-	
+
 	[_cntrlScreen,false] call cTab_fnc_drawUserMarkers;
 	[_cntrlScreen,cTabMicroDAGRmode] call cTab_fnc_drawBftMarkers;
-	
+
 	// draw directional arrow at own location
 	_cntrlScreen drawIcon ["\A3\ui_f\data\map\VehicleIcons\iconmanvirtual_ca.paa",cTabMicroDAGRfontColour,_playerPos,cTabTADownIconBaseSize,cTabTADownIconBaseSize,_heading,"", 1,cTabTxtSize,"TahomaB","right"];
-	
+
 	// update hook information
 	if (cTabDrawMapTools) then {
 		[_display,_cntrlScreen,_playerPos,cTabMapCursorPos,0,false] call cTab_fnc_drawHook;
 	};
-	
+
 	true
 };
 
@@ -911,21 +911,21 @@ cTabOnDrawbftMicroDAGRdlg = {
 cTabOnDrawUAV = {
 	if (isNil 'cTabActUav') exitWith {};
 	if (cTabActUav == player) exitWith {};
-	
+
 	_cntrlScreen = _this select 0;
 	_display = ctrlParent _cntrlScreen;
-	_pos = getPosASL cTabActUav;
-	
+	_pos = getPosWorld cTabActUav;
+
 	[_cntrlScreen,false] call cTab_fnc_drawUserMarkers;
 	[_cntrlScreen,0] call cTab_fnc_drawBftMarkers;
-	
+
 	// draw icon at own location
 	_veh = vehicle cTab_player;
-	_cntrlScreen drawIcon ["\A3\ui_f\data\map\VehicleIcons\iconmanvirtual_ca.paa",cTabMicroDAGRfontColour,getPosASL _veh,cTabTADownIconBaseSize,cTabTADownIconBaseSize,direction _veh,"", 1,cTabTxtSize,"TahomaB","right"];
-	
+	_cntrlScreen drawIcon ["\A3\ui_f\data\map\VehicleIcons\iconmanvirtual_ca.paa",cTabMicroDAGRfontColour,getPosWorld _veh,cTabTADownIconBaseSize,cTabTADownIconBaseSize,direction _veh,"", 1,cTabTxtSize,"TahomaB","right"];
+
 	// draw icon at UAV location
 	_cntrlScreen drawIcon ["\A3\ui_f\data\map\VehicleIcons\iconmanvirtual_ca.paa",cTabTADhighlightColour,_pos,cTabTADownIconBaseSize,cTabTADownIconBaseSize,direction cTabActUav,"",0,cTabTxtSize,"TahomaB","right"];
-	
+
 	_cntrlScreen ctrlMapAnimAdd [0,cTabMapScaleUAV,_pos];
 	ctrlMapAnimCommit _cntrlScreen;
 	true
@@ -935,21 +935,21 @@ cTabOnDrawUAV = {
 cTabOnDrawHCam = {
 	if (isNil 'cTabHcams') exitWith {};
 	_camHost = cTabHcams select 2;
-	
+
 	_cntrlScreen = _this select 0;
 	_display = ctrlParent _cntrlScreen;
-	_pos = getPosASL _camHost;
-	
+	_pos = getPosWorld _camHost;
+
 	[_cntrlScreen,false] call cTab_fnc_drawUserMarkers;
 	[_cntrlScreen,0] call cTab_fnc_drawBftMarkers;
-	
+
 	// draw icon at own location
 	_veh = vehicle cTab_player;
-	_cntrlScreen drawIcon ["\A3\ui_f\data\map\VehicleIcons\iconmanvirtual_ca.paa",cTabMicroDAGRfontColour,getPosASL _veh,cTabTADownIconBaseSize,cTabTADownIconBaseSize,direction _veh,"", 1,cTabTxtSize,"TahomaB","right"];
-	
+	_cntrlScreen drawIcon ["\A3\ui_f\data\map\VehicleIcons\iconmanvirtual_ca.paa",cTabMicroDAGRfontColour,getPosWorld _veh,cTabTADownIconBaseSize,cTabTADownIconBaseSize,direction _veh,"", 1,cTabTxtSize,"TahomaB","right"];
+
 	// draw icon at helmet cam location
 	_cntrlScreen drawIcon ["\A3\ui_f\data\map\VehicleIcons\iconmanvirtual_ca.paa",cTabTADhighlightColour,_pos,cTabTADownIconBaseSize,cTabTADownIconBaseSize,direction _camHost,"",0,cTabTxtSize,"TahomaB","right"];
-	
+
 	_cntrlScreen ctrlMapAnimAdd [0,cTabMapScaleHCam,_pos];
 	ctrlMapAnimCommit _cntrlScreen;
 	true
@@ -960,21 +960,21 @@ cTabOnDrawHCam = {
 //Main loop to add the key handler to the unit.
 [] spawn {
 	waitUntil {sleep 0.1;!(IsNull (findDisplay 46))};
-	
+
 	["cTab","ifMain",["Toggle Main Interface","Open cTab device in small overlay mode if available"],{call cTab_fnc_onIfMainPressed},"",[cTab_key_if_main_scancode,cTab_key_if_main_modifiers],false] call cba_fnc_addKeybind;
 	["cTab","ifSecondary",["Toggle Secondary Interface","Open cTab device in interactable mode"],{call cTab_fnc_onIfSecondaryPressed},"",[cTab_key_if_secondary_scancode,cTab_key_if_secondary_modifiers],false] call cba_fnc_addKeybind;
 	["cTab","ifTertiary",["Toggle Tertiary Interface","Open private cTab device when in a vehicle with its own cTab device, or to open Tablet while also carrying a MicroDAGR"],{call cTab_fnc_onIfTertiaryPressed},"",[cTab_key_if_tertiary_scancode,cTab_key_if_tertiary_modifiers],false] call cba_fnc_addKeybind;
 	["cTab","zoomIn",["Zoom In","Zoom In on map while cTab is in small overlay mode"],{call cTab_fnc_onZoomInPressed},"",[cTab_key_zoom_in_scancode,cTab_key_zoom_in_modifiers],false] call cba_fnc_addKeybind;
 	["cTab","zoomOut",["Zoom Out","Zoom Out on map while cTab is in small overlay mode"],{call cTab_fnc_onZoomOutPressed},"",[cTab_key_zoom_out_scancode,cTab_key_zoom_out_modifiers],false] call cba_fnc_addKeybind;
 	["cTab","toggleIfPosition",["Toggle Interface Position","Toggle overlay mode interface position from left to right or reset interactive mode interface position to default"],{[] call cTab_fnc_toggleIfPosition},"",[cTab_key_toggleIfPosition_scancode,cTab_key_toggleIfPosition_modifiers],false] call cba_fnc_addKeybind;
-	
+
 	// if player is curator (ZEUS), setup key handlers
 	waitUntil {sleep 0.1;!(isNull player)};
 	sleep 2;
-	if (player in (call BIS_fnc_listCuratorPlayers)) then {	
+	if (player in (call BIS_fnc_listCuratorPlayers)) then {
 		[] spawn {
 			while {true} do {
-				waitUntil {sleep 0.1;!(isNull (findDisplay 312))};			
+				waitUntil {sleep 0.1;!(isNull (findDisplay 312))};
 				(findDisplay 312) displayAddEventHandler ["KeyDown","[_this,'keydown'] call cTab_fnc_processCuratorKey"];
 				(findDisplay 312) displayAddEventHandler ["KeyUp","[_this,'keyup'] call cTab_fnc_processCuratorKey"];
 				waitUntil {sleep 0.1;isNull (findDisplay 312)};
@@ -997,10 +997,10 @@ cTab_msg_gui_load = {
 	// since playableUnits will return an empty array in single player, add the player if array is empty
 	if (_plrList isEqualTo []) then {_plrList pushBack cTab_player};
 	_validSides = call cTab_fnc_getPlayerSides;
-	
+
 	// turn this on for testing, otherwise not really usefull, since sending to an AI controlled, but switchable unit will send the message to the player himself
 	/*if (count _plrList < 1) then { _plrList = switchableUnits;};*/
-	
+
 	uiNamespace setVariable ['cTab_msg_playerList', _plrList];
 	// Messages
 	{
@@ -1015,16 +1015,16 @@ cTab_msg_gui_load = {
 		_msgControl lbSetPicture [_index,_img];
 		_msgControl lbSetTooltip [_index,_title];
 	} count _msgArray;
-	
+
 	{
 		if ((side _x in _validSides) && {isPlayer _x} && {[_x,["ItemcTab","ItemAndroid"]] call cTab_fnc_checkGear}) then {
 			_index = _plrlistControl lbAdd format ["%1:%2 (%3)",groupId group _x,[_x] call CBA_fnc_getGroupIndex,name _x];
 			_plrlistControl lbSetData [_index,str _x];
 		};
 	} count _plrList;
-	
+
 	lbSort [_plrlistControl, "ASC"];
-	
+
 	_return;
 };
 
@@ -1042,13 +1042,13 @@ cTab_msg_get_mailTxt = {
 		_msgArray set [_index,[_msgName,_msgtxt,1]];
 		cTab_player setVariable [format ["cTab_messages_%1",_playerEncryptionKey],_msgArray];
 	};
-	
+
 	_nop = [] call cTab_msg_gui_load;
-	
+
 	_txtControl = _display displayCtrl IDC_CTAB_MSG_CONTENT;
 
 	_nul = _txtControl ctrlSetText  _msgtxt;
-	
+
 	_return;
 };
 
@@ -1061,45 +1061,45 @@ cTab_msg_Send = {
 	_plrLBctrl = _display displayCtrl IDC_CTAB_MSG_RECIPIENTS;
 	_msgBodyctrl = _display displayCtrl IDC_CTAB_MSG_COMPOSE;
 	_plrList = (uiNamespace getVariable "cTab_msg_playerList");
-	
+
 	_indices = lbSelection _plrLBctrl;
-	
+
 	if (_indices isEqualTo []) exitWith {false};
-	
+
 	_time = call cTab_fnc_currentTime;
 	_msgTitle = format ["%1 - %2:%3 (%4)",_time,groupId group cTab_player,[cTab_player] call CBA_fnc_getGroupIndex,name cTab_player];
 	_msgBody = ctrlText _msgBodyctrl;
 	if (_msgBody isEqualTo "") exitWith {false};
 	_recipientNames = "";
-	
+
 	{
 		_data = _plrLBctrl lbData _x;
 		_recip = objNull;
 		{
 			if (_data == str _x) exitWith {_recip = _x;};
 		} count _plrList;
-		
+
 		if !(IsNull _recip) then {
 			if (_recipientNames isEqualTo "") then {
 				_recipientNames = format ["%1:%2 (%3)",groupId group _recip,[_recip] call CBA_fnc_getGroupIndex,name _recip];
 			} else {
 				_recipientNames = format ["%1; %2",_recipientNames,name _recip];
 			};
-			
+
 			["cTab_msg_receive",[_recip,_msgTitle,_msgBody,_playerEncryptionKey,cTab_player]] call CBA_fnc_whereLocalEvent;
 		};
 	} forEach _indices;
-	
+
 	// If the message was sent
 	if (_recipientNames != "") then {
 		_msgArray = cTab_player getVariable [format ["cTab_messages_%1",_playerEncryptionKey],[]];
 		_msgArray pushBack [format ["%1 - %2",_time,_recipientNames],_msgBody,2];
 		cTab_player setVariable [format ["cTab_messages_%1",_playerEncryptionKey],_msgArray];
-	
+
 		if (!isNil "cTabIfOpen" && {[cTabIfOpen select 1,"mode"] call cTab_fnc_getSettings == "MESSAGE"}) then {
 			call cTab_msg_gui_load;
 		};
-		
+
 		// add a notification
 		["MSG","Message sent successfully",3] call cTab_fnc_addNotification;
 		playSound "cTab_mailSent";
@@ -1108,7 +1108,7 @@ cTab_msg_Send = {
 		// clear selected recipients
 		_plrLBctrl lbSetCurSel -1;
 	};
-	
+
 	_return;
 };
 
@@ -1122,15 +1122,15 @@ cTab_msg_Send = {
 		_playerEncryptionKey = call cTab_fnc_getPlayerEncryptionKey;
 		_msgArray = _msgRecipient getVariable [format ["cTab_messages_%1",_msgEncryptionKey],[]];
 		_msgArray pushBack [_msgTitle,_msgBody,0];
-		
+
 		_msgRecipient setVariable [format ["cTab_messages_%1",_msgEncryptionKey],_msgArray];
-		
+
 		if (_msgRecipient == cTab_player && _sender != cTab_player && {_playerEncryptionKey == _msgEncryptionKey} && {[cTab_player,["ItemcTab","ItemAndroid"]] call cTab_fnc_checkGear}) then {
 			playSound "cTab_phoneVibrate";
-			
+
 			if (!isNil "cTabIfOpen" && {[cTabIfOpen select 1,"mode"] call cTab_fnc_getSettings == "MESSAGE"}) then {
 				_nop = [] call cTab_msg_gui_load;
-				
+
 				// add a notification
 				["MSG",format ["New message from %1",name _sender],6] call cTab_fnc_addNotification;
 			} else {
@@ -1139,7 +1139,7 @@ cTab_msg_Send = {
 		};
 	}
 ] call CBA_fnc_addLocalEventHandler;
-	
+
 cTab_msg_delete_all = {
 	_playerEncryptionKey = call cTab_fnc_getPlayerEncryptionKey;
 	cTab_player setVariable [format ["cTab_messages_%1",_playerEncryptionKey],[]];
@@ -1170,17 +1170,17 @@ cTab_fnc_onMsgBtnDelete = {
 	_display = uiNamespace getVariable _displayName;
 	_msgLbCtrl = _display displayCtrl IDC_CTAB_MSG_LIST;
 	_msgLbSelection = lbSelection _msgLbCtrl;
-	
+
 	if (count _msgLbSelection == 0) exitWith {false};
 	_playerEncryptionKey = call cTab_fnc_getPlayerEncryptionKey;
 	_msgArray = cTab_player getVariable [format ["cTab_messages_%1",_playerEncryptionKey],[]];
-	
+
 	// run through the selection backwards as otherwise the indices won't match anymore
 	for "_i" from (count _msgLbSelection) to 0 step -1 do {
 		_msgArray deleteAt (_msgLbSelection select _i);
 	};
 	cTab_player setVariable [format ["cTab_messages_%1",_playerEncryptionKey],_msgArray];
-	
+
 	_msgTextCtrl = _display displayCtrl IDC_CTAB_MSG_CONTENT;
 	_msgTextCtrl ctrlSetText "No Message Selected";
 	_nop = [] call cTab_msg_gui_load;
