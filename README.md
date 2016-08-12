@@ -6,6 +6,6 @@ cTab
 
 *Forked by Black Watch International for minor maintenance and development.* As per original license (GPL v2), any modifications we make to the project are free for use by others in accordance with the GPL license.
 
-*Forked by isopharius for further development.
+*Forked by isopharius for further development.*
 
 - added waypoints to TAD, ctrl-click to set / alt-click to remove
