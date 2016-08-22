@@ -1,9 +1,12 @@
-private["_event", "_unit"];
+private["_event", "_display", "_unit", "_ttypes", "_target","_marker_name"];
    _event = _this select 0;
 
    if (_event == "onLoad") then
    {
 		_unit = vehicle player;
+
+		(_display displayCtrl IDC_CTAB_SCREEN) ctrlMapAnimAdd [0, 1, getPosWorld _unit];
+		ctrlMapAnimCommit (_display displayCtrl IDC_CTAB_SCREEN);
 
 		[_unit]spawn
 		{
