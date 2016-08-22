@@ -59,7 +59,7 @@ _return = "";
 		["Value cannot be nil!"] call BIS_fnc_error;
 		_index = -2;
 	};
-	if (_key == (_x select 0)) exitWith
+	if (_key isEqualTo (_x select 0)) exitWith
 	{
 		_index = _forEachIndex;
 		_value = _x select 1;
@@ -68,10 +68,10 @@ _return = "";
 forEach _pairs;
 
 //error occured, exit
-if (_index == -2) exitWith {nil};
+if (_index isEqualTo -2) exitWith {nil};
 
 //key not found, add the new entry
-if (_index == -1) then
+if (_index isEqualTo -1) then
 {
 	_pairs pushBack [_key, _add];
 	_return = _add;
@@ -84,19 +84,19 @@ else
 
 	switch (true) do
 	{
-		case (_tValue == SCALAR && _tAdd == SCALAR):
+		case (_tValue isEqualTo SCALAR && _tAdd isEqualTo SCALAR):
 		{
 			_return = _value + _add;
 		};
-		case (_tValue == ARRAY && _tAdd == ARRAY):
+		case (_tValue isEqualTo ARRAY && _tAdd isEqualTo ARRAY):
 		{
 			_return = _value + _add;
 		};
-		case (_tValue == ARRAY):
+		case (_tValue isEqualTo ARRAY):
 		{
 			_return = _value + [_add];
 		};
-		case (_tAdd == ARRAY):
+		case (_tAdd isEqualTo ARRAY):
 		{
 			_return = _add + [_value];
 		};

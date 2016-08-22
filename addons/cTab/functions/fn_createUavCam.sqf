@@ -1,13 +1,13 @@
 /*
 	Name: cTab_fnc_createUavCam
-	
+
 	Author(s):
 		Gundy
 
 	Description:
 		Set up UAV camera and display on supplied render target
 		Modified to include lessons learned from KK's excellent tutorial: http://killzonekid.com/arma-scripting-tutorials-uav-r2t-and-pip/
-	
+
 	Parameters:
 		0: STRING - Name of UAV (format used from `str uavObject`)
 		1: ARRAY  - List of arrays with seats with render targets
@@ -15,10 +15,10 @@
 				0 = DRIVER
 				1 = GUNNER
 			1: STRING  - Name of render target
-	
+
 	Returns:
 		BOOLEAN - If UAV cam could be set up or not
-	
+
 	Example:
 		[str _uavVehicle,[[0,"rendertarget8"],[1,"rendertarget9"]]] call cTab_fnc_createUavCam;
 */
@@ -30,7 +30,7 @@ _data = _this select 0;
 
 // see if given UAV name is still in the list of valid UAVs
 {
-	if (_data == str _x) exitWith {_uav = _x;};
+	if (_data isEqualTo str _x) exitWith {_uav = _x;};
 } count cTabUAVlist;
 
 // remove exisitng UAV cameras
@@ -50,10 +50,10 @@ _uavCams = _this select 1;
 	_cam = objNull;
 	_camPosMemPt = "";
 	_camDirMemPt = "";
-	
+
 	_seatName = call {
-		if (_seat == 0) exitWith {"Driver"};
-		if (_seat == 1) exitWith {"Gunner"};
+		if (_seat isEqualTo 0) exitWith {"Driver"};
+		if (_seat isEqualTo 1) exitWith {"Gunner"};
 		""
 	};
 	if (_seatName != "") then {
@@ -68,7 +68,7 @@ _uavCams = _this select 1;
 		// set up cam on render target
 		_cam cameraEffect ["INTERNAL","BACK",_renderTarget];
 		call {
-			if (_seat == 1) exitWith {
+			if (_seat isEqualTo 1) exitWith {
 				_renderTarget setPiPEffect [2]; // IR mode
 				_cam camSetFov 0.1; // set zoom
 			};

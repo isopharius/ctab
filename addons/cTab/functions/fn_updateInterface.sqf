@@ -1,6 +1,6 @@
 /*
  	Name: cTab_fnc_updateInterface
- 	
+
  	Author(s):
 		Gundy
 
@@ -11,10 +11,10 @@
 	Parameters:
 	(Optional)
 		0: ARRAY - Property pairs in the form of [["propertyName",propertyValue],[...]]
- 	
+
  	Returns:
 		BOOLEAN - Always true
- 	
+
  	Example:
 		[[["mapType","SAT"],["mapScaleDsp","4"]]] call cTab_fnc_updateInterface;
 */
@@ -34,7 +34,7 @@ _targetMapScale = nil;
 _targetMapWorldPos = nil;
 _isDialog = [_displayName] call cTab_fnc_isDialog;
 
-if (count _this == 1) then {
+if (count _this isEqualTo 1) then {
 	_settings = _this select 0;
 } else {
 	// Retrieve all settings for the currently open interface
@@ -57,22 +57,22 @@ if (isNil "_mode") then {
 {
 	call {
 		// ------------ DISPLAY POSITION ------------
-		if (_x select 0 == "dspIfPosition") exitWith {
+		if (_x select 0 isEqualTo "dspIfPosition") exitWith {
 			_dspIfPosition = _x select 1;
-			
+
 			if !(_isDialog) then {
 				// get the current position of the background control
 				_backgroundPosition = [_displayName] call cTab_fnc_getBackgroundPosition;
 				_backgroundPositionX = _backgroundPosition select 0 select 0;
 				_backgroundPositionW = _backgroundPosition select 0 select 2;
-				
+
 				// get the original position of the background control
 				_backgroundConfigPositionX = _backgroundPosition select 1 select 0;
-				
+
 				// figure out if we need to do anything
 				if !((_backgroundPositionX != _backgroundConfigPositionX) isEqualTo _dspIfPosition) then {
 					// calculate offset required to shift position to the opposite
-					_xOffset = if (_backgroundPositionX == _backgroundConfigPositionX) then {
+					_xOffset = if (_backgroundPositionX isEqualTo _backgroundConfigPositionX) then {
 							2 * safeZoneX + safeZoneW - _backgroundPositionW - 2 * _backgroundPositionX
 						} else {
 							_backgroundConfigPositionX - _backgroundPositionX
@@ -82,9 +82,9 @@ if (isNil "_mode") then {
 			};
 		};
 		// ------------ DIALOG POSITION ------------
-		if (_x select 0 == "dlgIfPosition") exitWith {
+		if (_x select 0 isEqualTo "dlgIfPosition") exitWith {
 			_backgroundOffset = _x select 1;
-			
+
 			if (_isDialog) then {
 				if (_backgroundOffset isEqualTo []) then {
 					_backgroundOffset = if (_interfaceInit) then {
@@ -103,25 +103,25 @@ if (isNil "_mode") then {
 		};
 		// ------------ BRIGHTNESS ------------
 		// Value ranges from 0 to 1, 0 being off and 1 being full brightness
-		if (_x select 0 == "brightness") exitWith {
+		if (_x select 0 isEqualTo "brightness") exitWith {
 			_osdCtrl = _display displayCtrl IDC_CTAB_BRIGHTNESS;
 			if (!isNull _osdCtrl) then {
 				_brightness = _x select 1;
 				_nightMode = [_displayName,"nightMode"] call cTab_fnc_getSettings;
 				// if we are running night mode, lower the brightness proportionally
 				if (!isNil "_nightMode") then {
-					if (_nightMode == 1 || {_nightMode == 2 && (sunOrMoon < 0.2)}) then {_brightness = _brightness * 0.7};
+					if (_nightMode isEqualTo 1 || {_nightMode isEqualTo 2 && (sunOrMoon < 0.2)}) then {_brightness = _brightness * 0.7};
 				};
 				_osdCtrl ctrlSetBackgroundColor [0,0,0,1 - _brightness];
 			};
 		};
-		
+
 		// ------------ NIGHT MODE ------------
 		// 0 = day mode, 1 = night mode, 2 = automatic
-		if (_x select 0 == "nightMode") exitWith {
+		if (_x select 0 isEqualTo "nightMode") exitWith {
 			_nightMode = _x select 1;
 			// transform nightMode into boolean
-			_nightMode = if (_nightMode == 1 || {_nightMode == 2 && (sunOrMoon < 0.2)}) then {true} else {false};
+			_nightMode = if (_nightMode isEqualTo 1 || {_nightMode isEqualTo 2 && (sunOrMoon < 0.2)}) then {true} else {false};
 			_background = call {
 				if (_displayName in ["cTab_TAD_dsp","cTab_TAD_dlg"]) exitWith {
 					if (_nightMode) then {"\cTab\img\TAD_background_night_ca.paa"} else {"\cTab\img\TAD_background_ca.paa"};
@@ -145,13 +145,13 @@ if (isNil "_mode") then {
 				};
 			};
 		};
-		
+
 		// ------------ MODE ------------
-		if (_x select 0 == "mode") exitWith {
+		if (_x select 0 isEqualTo "mode") exitWith {
 			cTabUserPos = [];
-			
-			_displayItems = call {				
-				if (_displayName == "cTab_Tablet_dlg") exitWith {
+
+			_displayItems = call {
+				if (_displayName isEqualTo "cTab_Tablet_dlg") exitWith {
 					[3300,3301,3302,3303,3304,3305,3306,3307,
 					IDC_CTAB_GROUP_DESKTOP,
 					IDC_CTAB_GROUP_UAV,
@@ -169,7 +169,7 @@ if (isNil "_mode") then {
 					IDC_CTAB_OSD_HOOK_DIR,
 					IDC_CTAB_NOTIFICATION]
 				};
-				if (_displayName == "cTab_Android_dlg") exitWith {
+				if (_displayName isEqualTo "cTab_Android_dlg") exitWith {
 					[3300,3301,3302,3303,3304,3305,3306,3307,
 					IDC_CTAB_GROUP_MENU,
 					IDC_CTAB_GROUP_MESSAGE,
@@ -191,22 +191,22 @@ if (isNil "_mode") then {
 			if !(_displayItems isEqualTo []) then {
 				_btnActCtrl = _display displayCtrl IDC_CTAB_BTNACT;
 				_displayItemsToShow = [];
-				
+
 				call {
 					// ---------- DESKTOP -----------
-					if (_mode == "DESKTOP") exitWith {
+					if (_mode isEqualTo "DESKTOP") exitWith {
 						_displayItemsToShow pushback IDC_CTAB_GROUP_DESKTOP;
 						_btnActCtrl ctrlSetText "";
 						_btnActCtrl ctrlSetTooltip "";
 					};
 					// ---------- BFT -----------
-					if (_mode == "BFT") exitWith {
+					if (_mode isEqualTo "BFT") exitWith {
 						_mapTypes = [_displayName,"mapTypes"] call cTab_fnc_getSettings;
 						_mapType = [_displayName,"mapType"] call cTab_fnc_getSettings;
 						_mapIDC = [_mapTypes,_mapType] call cTab_fnc_getFromPairs;
-						
+
 						_displayItemsToShow pushBack _mapIDC;
-						
+
 						_mapTools = [_displayName,"mapTools"] call cTab_fnc_getSettings;
 						if (!isNil "_mapTools" && {_mapTools}) then {
 							_displayItemsToShow append [
@@ -216,14 +216,14 @@ if (isNil "_mode") then {
 								IDC_CTAB_OSD_HOOK_DIR
 							];
 						};
-						
+
 						_showMenu = [_displayName,"showMenu"] call cTab_fnc_getSettings;
 						if (!isNil "_showMenu" && {_showMenu}) then	{
 							_displayItemsToShow pushBack IDC_CTAB_GROUP_MENU;
 						};
-						
+
 						_btnActCtrl ctrlSetTooltip "";
-						
+
 						// update scale and world position when not on interface init
 						if (!_interfaceInit) then {
 							if (_isDialog) then {
@@ -239,7 +239,7 @@ if (isNil "_mode") then {
 							_targetMapName = [_displayName,"mapType"] call cTab_fnc_getSettings;
 							_targetMapIDC = [_mapTypes,_targetMapName] call cTab_fnc_getFromPairs;
 							_targetMapCtrl = _display displayCtrl _targetMapIDC;
-							
+
 							// If we find the map to be shown, we are switching away from BFT. Lets save map scale and position
 							if (ctrlShown _targetMapCtrl) then {
 								_mapScale = cTabMapScale * cTabMapScaleFactor / 0.86 * (safezoneH * 0.8);
@@ -248,7 +248,7 @@ if (isNil "_mode") then {
 						};
 					};
 					// ---------- UAV -----------
-					if (_mode == "UAV") exitWith {
+					if (_mode isEqualTo "UAV") exitWith {
 						_displayItemsToShow = [
 							IDC_CTAB_GROUP_UAV,
 							IDC_CTAB_MINIMAPBG,
@@ -261,7 +261,7 @@ if (isNil "_mode") then {
 						};
 					};
 					// ---------- HELMET CAM -----------
-					if (_mode == "HCAM") exitWith {
+					if (_mode isEqualTo "HCAM") exitWith {
 						_displayItemsToShow = [
 							IDC_CTAB_GROUP_HCAM,
 							IDC_CTAB_MINIMAPBG,
@@ -274,32 +274,32 @@ if (isNil "_mode") then {
 						};
 					};
 					// ---------- MESSAGING -----------
-					if (_mode == "MESSAGE") exitWith {
+					if (_mode isEqualTo "MESSAGE") exitWith {
 						_displayItemsToShow = [IDC_CTAB_GROUP_MESSAGE];
 						call cTab_msg_gui_load;
 						cTabRscLayerMailNotification cutText ["", "PLAIN"];
 						_btnActCtrl ctrlSetTooltip "";
 					};
 					// ---------- MESSAGING COMPOSE -----------
-					if (_mode == "COMPOSE") exitWith {
+					if (_mode isEqualTo "COMPOSE") exitWith {
 						_displayItemsToShow pushBack IDC_CTAB_GROUP_COMPOSE;
 						call cTab_msg_gui_load;
 					};
 					// ---------- FULLSCREEN HELMET CAM -----------
-					if (_mode == "HCAM_FULL") exitWith {
+					if (_mode isEqualTo "HCAM_FULL") exitWith {
 						_displayItemsToShow = [IDC_CTAB_HCAM_FULL];
 						_data = [_displayName,"hCam"] call cTab_fnc_getSettings;
 						_btnActCtrl ctrlSetTooltip "Toggle Fullscreen";
 						['rendertarget13',_data] spawn cTab_fnc_createHelmetCam;
 					};
 				};
-				
+
 				// hide every _displayItems not in _displayItemsToShow
 				{(_display displayCtrl _x) ctrlShow (_x in _displayItemsToShow)} count _displayItems;
 			};
 		};
 		// ------------ SHOW ICON TEXT ------------
-		if (_x select 0 == "showIconText") exitWith {
+		if (_x select 0 isEqualTo "showIconText") exitWith {
 			_osdCtrl = _display displayCtrl IDC_CTAB_OSD_TXT_TGGL;
 			if (!isNull _osdCtrl) then {
 				_text = if (_x select 1) then {"ON"} else {"OFF"};
@@ -307,8 +307,8 @@ if (isNil "_mode") then {
 			};
 		};
 		// ------------ MAP SCALE DSP------------
-		if (_x select 0 == "mapScaleDsp") exitWith {
-			if (_mode == "BFT" && !_isDialog) then {
+		if (_x select 0 isEqualTo "mapScaleDsp") exitWith {
+			if (_mode isEqualTo "BFT" && !_isDialog) then {
 				_mapScaleKm = _x select 1;
 				// pre-Calculate map scales
 				_mapScaleMin = [_displayName,"mapScaleMin"] call cTab_fnc_getSettings;
@@ -323,7 +323,7 @@ if (isNil "_mode") then {
 					[_displayName,[["mapScaleDsp",_mapScaleKm]],false] call cTab_fnc_setSettings;
 				};
 				cTabMapScale = _mapScaleKm / cTabMapScaleFactor;
-				
+
 				_osdCtrl = _display displayCtrl IDC_CTAB_OSD_MAP_SCALE;
 				if (!isNull _osdCtrl) then {
 					// divide by 2 because we want to display the radius, not the diameter
@@ -332,20 +332,20 @@ if (isNil "_mode") then {
 					} else {
 						[_mapScaleKm / 2,0,1] call CBA_fnc_formatNumber
 					};
-					_osdCtrl ctrlSetText format ["%1",_mapScaleTxt];	
+					_osdCtrl ctrlSetText format ["%1",_mapScaleTxt];
 				};
 			};
 		};
 		// ------------ MAP SCALE DLG------------
-		if (_x select 0 == "mapScaleDlg") exitWith {
-			if (_mode == "BFT" && _isDialog) then {
+		if (_x select 0 isEqualTo "mapScaleDlg") exitWith {
+			if (_mode isEqualTo "BFT" && _isDialog) then {
 				_mapScaleKm = _x select 1;
 				_targetMapScale = _mapScaleKm / cTabMapScaleFactor * 0.86 / (safezoneH * 0.8);
 			};
 		};
 		// ------------ MAP WORLD POSITION ------------
-		if (_x select 0 == "mapWorldPos") exitWith {
-			if (_mode == "BFT") then {
+		if (_x select 0 isEqualTo "mapWorldPos") exitWith {
+			if (_mode isEqualTo "BFT") then {
 				if (_isDialog) then {
 					_mapWorldPos = _x select 1;
 					if !(_mapWorldPos isEqualTo []) then {
@@ -355,13 +355,13 @@ if (isNil "_mode") then {
 			};
 		};
 		// ------------ MAP TYPE ------------
-		if (_x select 0 == "mapType") exitWith {
+		if (_x select 0 isEqualTo "mapType") exitWith {
 			_mapTypes = [_displayName,"mapTypes"] call cTab_fnc_getSettings;
-			if ((count _mapTypes > 1) && (_mode == "BFT")) then {
+			if ((count _mapTypes > 1) && (_mode isEqualTo "BFT")) then {
 				_targetMapName = _x select 1;
 				_targetMapIDC = [_mapTypes,_targetMapName] call cTab_fnc_getFromPairs;
 				_targetMapCtrl = _display displayCtrl _targetMapIDC;
-				
+
 				if (!_interfaceInit && _isDialog) then {
 					_previousMapCtrl = controlNull;
 					{
@@ -377,18 +377,18 @@ if (isNil "_mode") then {
 						if (isNil "_targetMapWorldPos") then {_targetMapWorldPos = [_previousMapCtrl] call cTab_fnc_ctrlMapCenter};
 					};
 				};
-				
+
 				// Hide all unwanted map types
 				{
 					if (_x select 0 != _targetMapName) then {
 						(_display displayCtrl (_x select 1)) ctrlShow false;
 					};
 				} count _mapTypes;
-				
+
 				// Update OSD element if it exists
 				_osdCtrl = _display displayCtrl IDC_CTAB_OSD_MAP_TGGL;
 				if (!isNull _osdCtrl) then {_osdCtrl ctrlSetText _targetMapName;};
-				
+
 				// show correct map contorl
 				if (!ctrlShown _targetMapCtrl) then {
 					_targetMapCtrl ctrlShow true;
@@ -398,8 +398,8 @@ if (isNil "_mode") then {
 			};
 		};
 		// ------------ UAV CAM ------------
-		if (_x select 0 == "uavCam") exitWith {
-			if (_mode == "UAV") then {
+		if (_x select 0 isEqualTo "uavCam") exitWith {
+			if (_mode isEqualTo "UAV") then {
 				_data = _x select 1;
 				if (_data != "") then {
 					[_data,[[0,"rendertarget8"],[1,"rendertarget9"]]] spawn cTab_fnc_createUavCam;
@@ -409,10 +409,10 @@ if (isNil "_mode") then {
 			};
 		};
 		// ------------ HCAM ------------
-		if (_x select 0 == "hCam") exitWith {
+		if (_x select 0 isEqualTo "hCam") exitWith {
 			_renderTarget = call {
-				if (_mode == "HCAM") exitWith {"rendertarget12"};
-				if (_mode == "HCAM_FULL") exitWith {"rendertarget13"}
+				if (_mode isEqualTo "HCAM") exitWith {"rendertarget12"};
+				if (_mode isEqualTo "HCAM_FULL") exitWith {"rendertarget13"}
 			};
 			if (!isNil "_renderTarget") then {
 				_data = _x select 1;
@@ -424,9 +424,9 @@ if (isNil "_mode") then {
 			};
 		};
 		// ------------ MAP TOOLS ------------
-		if (_x select 0 == "mapTools") exitWith {
+		if (_x select 0 isEqualTo "mapTools") exitWith {
 			cTabDrawMapTools = _x select 1;
-			if (_mode == "BFT") then {
+			if (_mode isEqualTo "BFT") then {
 				if !(_displayName in ["cTab_TAD_dlg","cTab_TAD_dsp"]) then {
 					{
 						_osdCtrl = _display displayCtrl _x;
@@ -448,17 +448,17 @@ if (isNil "_mode") then {
 			};
 		};
 		// ------------ MENU ------------
-		if (_x select 0 == "showMenu") exitWith {
+		if (_x select 0 isEqualTo "showMenu") exitWith {
 			_osdCtrl = _display displayCtrl IDC_CTAB_GROUP_MENU;
 			if (!isNull _osdCtrl) then {
-				if (_mode == "BFT") then {
+				if (_mode isEqualTo "BFT") then {
 					_osdCtrl ctrlShow (_x select 1);
 				};
 			};
 		};
 		// ------------ UAV List Update ------------
-		if (_x select 0 == "uavListUpdate") exitWith {
-			if (_mode == "UAV") then {
+		if (_x select 0 isEqualTo "uavListUpdate") exitWith {
+			if (_mode isEqualTo "UAV") then {
 				_data = [_displayName,"uavCam"] call cTab_fnc_getSettings;
 				_uavListCtrl = _display displayCtrl IDC_CTAB_CTABUAVLIST;
 				lbClear _uavListCtrl;
@@ -474,22 +474,22 @@ if (isNil "_mode") then {
 				if (_data != "") then {
 					// Find last selected UAV and select if found
 					for "_x" from 0 to (lbSize _uavListCtrl - 1) do {
-						if (_data == _uavListCtrl lbData _x) exitWith {
+						if (_data isEqualTo _uavListCtrl lbData _x) exitWith {
 							if (lbCurSel _uavListCtrl != _x) then {
 								_uavListCtrl lbSetCurSel _x;
 							};
 						};
 					};
 					// If no UAV could be selected, clear last selected UAV
-					if (lbCurSel _uavListCtrl == -1) then {
+					if (lbCurSel _uavListCtrl isEqualTo -1) then {
 						[_displayName,[["uavCam",""]]] call cTab_fnc_setSettings;
 					};
 				};
 			};
 		};
 		// ------------ HCAM List Update ------------
-		if (_x select 0 == "hCamListUpdate") exitWith {
-			if (_mode == "HCAM") then {
+		if (_x select 0 isEqualTo "hCamListUpdate") exitWith {
+			if (_mode isEqualTo "HCAM") then {
 				_data = [_displayName,"hCam"] call cTab_fnc_getSettings;
 				_hcamListCtrl = _display displayCtrl IDC_CTAB_CTABHCAMLIST;
 				// Populate list of HCAMs
@@ -503,14 +503,14 @@ if (isNil "_mode") then {
 				if (_data != "") then {
 					// Find last selected hCam and select if found
 					for "_x" from 0 to (lbSize _hcamListCtrl - 1) do {
-						if (_data == _hcamListCtrl lbData _x) exitWith {
+						if (_data isEqualTo _hcamListCtrl lbData _x) exitWith {
 							if (lbCurSel _hcamListCtrl != _x) then {
 								_hcamListCtrl lbSetCurSel _x;
 							};
 						};
 					};
 					// If no hCam could be selected, clear last selected hCam
-					if (lbCurSel _hcamListCtrl == -1) then {
+					if (lbCurSel _hcamListCtrl isEqualTo -1) then {
 						[_displayName,[["hCam",""]]] call cTab_fnc_setSettings;
 					};
 				};
@@ -552,7 +552,7 @@ if (!isNull _loadingCtrl) then {
 			setMousePosition (_this select 0);
 		},0,_mousePos] call CBA_fnc_addPerFrameHandler;
 	};
-	
+
 	_loadingCtrl ctrlShow false;
 	while {ctrlShown _loadingCtrl} do {};
 };

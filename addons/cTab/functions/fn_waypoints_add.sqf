@@ -1,7 +1,7 @@
-if (((_this select 1) select 1) == 0) then
+if (((_this select 1) select 1) isEqualTo 0) then
 	{
 		_pgroup = group player;
-		if (leader _pgroup == player) then
+		if (leader _pgroup isEqualTo player) then
 		{
 			if ((_this select 1) select 5) then
 			{
@@ -26,7 +26,7 @@ if (((_this select 1) select 1) == 0) then
 					};
 				};
 
-				if (_closer != 0) then
+				if !(_closer isEqualTo 0) then
 				{
 					deleteWaypoint [_pgroup, _closer];
 				};

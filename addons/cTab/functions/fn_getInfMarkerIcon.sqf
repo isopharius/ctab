@@ -1,6 +1,6 @@
 /*
  	Name: cTab_fnc_getInfMarkerIcon
- 	
+
  	Author(s):
 		Gundy
 
@@ -10,10 +10,10 @@
 	Parameters:
 	(Optional)
 		0: OBJECT - Unit to return infantry marker for
- 	
+
  	Returns:
 		STRING - Path to infantry marker
- 	
+
  	Example:
 		player call cTab_fnc_getInfMarkerIcon;
 */
@@ -22,13 +22,13 @@ private "_unit";
 
 _unit = _this;
 
-if (getNumber(configFile >> "CfgVehicles" >> typeOf(_unit) >> "attendant") == 1) exitWith {
+if (getNumber(configFile >> "CfgVehicles" >> typeOf(_unit) >> "attendant") isEqualTo 1) exitWith {
 	"\A3\ui_f\data\map\vehicleicons\iconManMedic_ca.paa"
 };
-if (getNumber(configFile >> "CfgVehicles" >> typeOf(_unit) >> "engineer") == 1) exitWith {
+if (getNumber(configFile >> "CfgVehicles" >> typeOf(_unit) >> "engineer") isEqualTo 1) exitWith {
 	"\A3\ui_f\data\map\vehicleicons\iconManEngineer_ca.paa"
 };
-if (leader(_unit) == _unit) exitWith {
+if (leader(_unit) isEqualTo _unit) exitWith {
 	"\A3\ui_f\data\map\vehicleicons\iconManLeader_ca.paa"
 };
 // This appears to be the most consistent way to detect that a weapon is an

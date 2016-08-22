@@ -1,19 +1,19 @@
 /*
  	Name: cTab_fnc_createHelmetCam
- 	
+
  	Author(s):
 		Gundy, Riouken
 
  	Description:
 		Set up helmet camera and display on supplied render target
-	
+
 	Parameters:
 		0: STRING - Render target
 		1: STRING - Name of unit with helmet camera (format used from `str unitObject`)
- 	
+
  	Returns:
 		BOOLEAN - If helmet cam could be set up or not
- 	
+
  	Example:
 		["rendertarget12",str player] spawn cTab_fnc_createHelmetCam;
 */
@@ -29,7 +29,7 @@ _targetOffSet = [];
 
 // see if given unit name is still in the list of units with valid helmet cams
 {
-	if (_data == str _x) exitWith {_newHost = _x;};
+	if (_data isEqualTo str _x) exitWith {_newHost = _x;};
 } count cTabHcamlist;
 
 call {
@@ -79,7 +79,7 @@ _cam = "camera" camCreate getPosATL _newHost;
 _cam camPrepareFov 0.700;
 _cam camPrepareTarget _target;
 _cam camCommitPrepared 0;
-if (vehicle _newHost == _newHost) then {
+if (vehicle _newHost isEqualTo _newHost) then {
 	_cam attachTo [_newHost,_camOffSet,"Head"];
 } else {
 	_cam attachTo [_newHost,_camOffSet];

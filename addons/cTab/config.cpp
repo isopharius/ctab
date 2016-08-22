@@ -14,7 +14,7 @@
 #define VERSION_AR MAJOR,MINOR,PATCHLVL,BUILD
 #define REQUIRED_VERSION 1.32
 #include "\x\cba\addons\main\script_macros_common.hpp"
-#define AUTHOR "Gundy, Riouken, Raspu"
+#define AUTHOR "Gundy, Riouken, Raspu, isopharius"
 
 
 class CfgPatches
@@ -27,21 +27,21 @@ class CfgPatches
 			requiredAddons[] = {"CBA_MAIN"};
 			versionDesc = "cTab";
 			VERSION_CONFIG;
-			author[] = {"Gundy","Riouken","Raspu"};
+			author[] = {"Gundy","Riouken","Raspu","isopharius"};
 			authorUrl = "https://github.com/Riouken/cTab";
 		};
 };
 
-class CfgSettings 
+class CfgSettings
 {
-	class CBA 
+	class CBA
 	{
-		class Versioning 
+		class Versioning
 		{
-			class PREFIX 
+			class PREFIX
 			{
 				main_addon = PREFIX;
-				class Dependencies 
+				class Dependencies
 				{
 					CBA[] = {"cba_main", { 1,0,0 },"true"};
 				};
@@ -103,7 +103,7 @@ class CfgWeapons
 		};
 		author = AUTHOR;
 	};
-	
+
 	class ItemAndroid: ItemcTab {
 		descriptionshort = "GD300 Rugged Wearable Computer";
 		descriptionuse = "<t color='#9cf953'>Use: </t>Show Android Based BFT";
@@ -127,7 +127,7 @@ class CfgWeapons
 		};
 		author = AUTHOR;
 	};
-	
+
 	class ItemcTabHCam: ItemCore {
 		descriptionshort = "HD Helmet Mounted Camera";
 		descriptionuse = "<t color='#9cf953'>Use: </t>Used to record and stream video";
@@ -141,12 +141,12 @@ class CfgWeapons
 			mass = 4;
 		};
 		author = AUTHOR;
-	};	
+	};
 };
 
 class CfgNotifications
 {
-	
+
 	class cTabUavNotAval
 	{
 		title = "cTab";
@@ -158,7 +158,7 @@ class CfgNotifications
 		priority = 7;
 		difficulty[] = {};
 	};
-	
+
 	class cTabNewMsg
 	{
 		title = "cTab";
@@ -181,7 +181,7 @@ class CfgNotifications
 		duration = 4;
 		priority = 7;
 		difficulty[] = {};
-	};	
+	};
 
 };
 
@@ -226,13 +226,13 @@ class CfgVehicles
 				name = "ItemcTabHCam";
 			};
 		};
-	
-	
+
+
 		class TransportMagazines {};
 		class TransportWeapons {};
-	
+
 	};
-	
+
 };
 
 class CfgSounds
@@ -242,7 +242,7 @@ class CfgSounds
 	{
 		// filename, volume, pitch
 		sound[] = {"\cTab\sounds\phoneVibrate.wss",1,1};
-		// subtitle delay in seconds, subtitle text 
+		// subtitle delay in seconds, subtitle text
 		titles[] = {};
 	};
 	class cTab_mailSent

@@ -1,6 +1,6 @@
 /*
  	Name: cTab_fnc_unitInEnabledVehicleSeat
- 	
+
  	Author(s):
 		Gundy
 
@@ -9,15 +9,15 @@
 		The front seciton-of a vehilce is defined as:
 			- Ground vehicles, everyone in the same compartment as the driver, including the driver. Excluded are people sitting in the cargo / passenger compartment of a Truck or APC
 			- Aircraft, pilot and co-pilot / gunner, but not door gunners or any passengers
-	
+
 	Parameters:
 		0: OBJECT - Unit object to check
 		1: OBJECT - Vehicle to check against
 		2: STRING - String of device to check for (current options are: "FBCB2" and "TAD")
- 	
+
  	Returns:
 		BOOLEAN - True if unit is in the front-section of a cTab enabled vehicle, false if not
- 	
+
  	Example:
 		_playerHasCtabItem = [player,["ItemcTab","ItemAndroid","ItemMicroDAGR"]] call cTab_fnc_unitInEnabledVehicleSeat;
 */
@@ -41,11 +41,11 @@ switch (_type) do {
 {
 	if (_vehicle isKindOf _x) exitWith {
 		call {
-			if (_unit == driver _vehicle) exitWith {_return = true;};
-			if (_type == "FBCB2") exitWith {
+			if (_unit isEqualTo driver _vehicle) exitWith {_return = true;};
+			if (_type isEqualTo "FBCB2") exitWith {
 				call {
 					_cargoIndex = _vehicle getCargoIndex _unit; // 0-based seat number in cargo, -1 if not in cargo
-					if (_cargoIndex == -1) exitWith {_return = true;}; // if not in cargo, _unit must be gunner or commander
+					if (_cargoIndex isEqualTo -1) exitWith {_return = true;}; // if not in cargo, _unit must be gunner or commander
 					_cargoCompartments = getArray (configFile/"CfgVehicles"/typeOf _vehicle/"cargoCompartments");
 					if (count _cargoCompartments > 1) then {
 						// assume the vehicle setup is correct if there is more than one cargo compartment
@@ -59,8 +59,8 @@ switch (_type) do {
 					};
 				};
 			};
-			if (_type == "TAD") then {
-				if (_unit == _vehicle call cTab_fnc_getCopilot) then {_return = true};
+			if (_type isEqualTo "TAD") then {
+				if (_unit isEqualTo _vehicle call cTab_fnc_getCopilot) then {_return = true};
 			};
 		};
 	};

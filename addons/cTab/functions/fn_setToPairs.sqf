@@ -45,7 +45,7 @@ _index  = -1;
 		["Value cannot be nil!"] call BIS_fnc_error;
 		_index = -2;
 	};
-	if (_key == (_x select 0)) exitWith
+	if (_key isEqualTo (_x select 0)) exitWith
 	{
 		_index = _forEachIndex;
 	};
@@ -53,10 +53,10 @@ _index  = -1;
 forEach _pairs;
 
 //error occured, exit
-if (_index == -2) exitWith {_pairs};
+if (_index isEqualTo -2) exitWith {_pairs};
 
 //key not found, add the new entry
-if (_index == -1) then
+if (_index isEqualTo -1) then
 {
 	_pairs pushBack [_key, _value];
 }

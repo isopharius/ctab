@@ -1,6 +1,6 @@
 /*
  	Name: cTab_fnc_setSettings
- 	
+
  	Author(s):
 		Gundy
 
@@ -10,20 +10,20 @@
 	Parameters:
 		0: STRING - Name of uiNamespace display / dialog variable
 		1: ARRAY  - Property pair(s) to write in the form of [["propertyName",propertyValue],[...]]
-		
+
 		(Optional)
 		2: BOOLEAN - If set to false, do not update interface (default true)
 		3: BOOLEAN - If set to true, update interface even if the values haven't changed (default false)
- 	
+
  	Returns:
  		BOOLEAN - If settings could be stored
- 	
+
  	Example:
 		["cTab_Tablet_dlg",[["mapType","SAT"],["mapScaleDsp","4"]]] call cTab_fnc_setSettings;
-		
+
 		// Update mapWorldPos and update the interface even if the value has not changed
 		["cTab_Tablet_dlg",[["mapWorldPos",getPosASL vehicle player]],true,true] call cTab_fnc_setSettings;
-		
+
 		// Update mapWorldPos and mapScale, but do not update the interface
 		["cTab_Tablet_dlg",[["mapWorldPos",getPosASL vehicle player],["mapScaleDsp","2"]],false] call cTab_fnc_setSettings;
 */
@@ -83,7 +83,7 @@ _combinedPropertiesUpdate = [];
 if (!isNil "cTabIfOpen") then {
 	call {
 		if (!_updateInterface) exitWith {};
-		if ((([cTabDisplayPropertyGroups,cTabIfOpen select 1] call cTab_fnc_getFromPairs) == _propertyGroupName) && {count _combinedPropertiesUpdate > 0}) exitWith {
+		if ((([cTabDisplayPropertyGroups,cTabIfOpen select 1] call cTab_fnc_getFromPairs) isEqualTo _propertyGroupName) && {count _combinedPropertiesUpdate > 0}) exitWith {
 			[_combinedPropertiesUpdate] call cTab_fnc_updateInterface;
 		};
 		if (count _commonPropertiesUpdate > 0) then {

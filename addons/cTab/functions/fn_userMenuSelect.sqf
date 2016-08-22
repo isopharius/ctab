@@ -1,19 +1,19 @@
 /*
 	Name: cTab_fnc_userMenuSelect
-	
+
 	Author(s):
 		Gundy, Riouken
-	
+
 	Description:
 		Process user menu select events, initiated by "\cTab\shared\cTab_markerMenu_controls.hpp"
-		
-	
+
+
 	Parameters:
 		0: INTEGER - Type of user menu select event - if this doesn't match a valid type it will be considered to be an IDC
-	
+
 	Returns:
 		BOOLEAN - TRUE
-	
+
 	Example:
 		[1] call cTab_fnc_userMenuSelect;
 */
@@ -32,28 +32,28 @@ _idcToShow = 0;
 
 call {
 	// send cTabUserSelIcon to server
-	if (_type == 1) exitWith {
+	if (_type isEqualTo 1) exitWith {
 		cTabUserSelIcon pushBack cTab_player;
 		[call cTab_fnc_getPlayerEncryptionKey,cTabUserSelIcon] call cTab_fnc_addUserMarker;
 	};
-	
+
 	// Lock UAV cam to clicked position
-	if (_type == 2) exitWith {
+	if (_type isEqualTo 2) exitWith {
 		[cTabUserSelIcon select 0] call cTab_fnc_lockUavCamTo;
 	};
 
 	_idcToShow = call {
-		if (_type == 11) exitWith {3301};
-		if (_type == 12) exitWith {3303};
-		if (_type == 13) exitWith {3304};
-		if (_type == 14) exitWith {
+		if (_type isEqualTo 11) exitWith {3301};
+		if (_type isEqualTo 12) exitWith {3303};
+		if (_type isEqualTo 13) exitWith {3304};
+		if (_type isEqualTo 14) exitWith {
 			if (cTabUserSelIcon select 1 != 0) then {
 				cTabUserSelIcon set [2,0];
 				3304
 			} else {3307};
 		};
-		if (_type == 21) exitWith {3305};
-		if (_type == 31) exitWith {3306};
+		if (_type isEqualTo 21) exitWith {3305};
+		if (_type isEqualTo 31) exitWith {3306};
 		_type;
 	};
 };
@@ -66,14 +66,14 @@ if (_idcToShow != 0) then {
 	_control = _display displayCtrl _idcToShow;
 	if !(isNull _control) then {
 		_controlPos = ctrlPosition _control;
-		
+
 		// figure out screen edge positions and where the edges of the control would be if we were just to move it blindly to cTabUserPos
 		_screenPos = ctrlPosition (_display displayCtrl IDC_CTAB_LOADINGTXT);
 		_screenEdgeX = (_screenPos select 0) + (_screenPos select 2);
 		_screenEdgeY = (_screenPos select 1) + (_screenPos select 3);
 		_controlEdgeX = (cTabUserPos select 0) + (_controlPos select 2);
 		_controlEdgeY = (cTabUserPos select 1) + (_controlPos select 3);
-		
+
 		// if control would be clipping the right edge, correct control position
 		if (_controlEdgeX > _screenEdgeX) then {
 			_controlPos set [0,_screenEdgeX - (_controlPos select 2)];
@@ -86,7 +86,7 @@ if (_idcToShow != 0) then {
 		} else {
 			_controlPos set [1,cTabUserPos select 1];
 		};
-		
+
 		// move to position and show
 		_control ctrlSetPosition _controlPos;
 		_control ctrlCommit 0;

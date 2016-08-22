@@ -261,7 +261,7 @@ if (isNil "cTab_vehicleClass_has_FBCB2") then {
 // strip list of invalid config names and duplicates to save time checking through them later
 _classNames = [];
 {
-	if (isClass (configfile >> "CfgVehicles" >> _x) && _classNames find _x == -1) then {
+	if (isClass (configfile >> "CfgVehicles" >> _x) && _classNames find _x isEqualTo -1) then {
 		0 = _classNames pushBack _x;
 	};
 } count cTab_vehicleClass_has_FBCB2;
@@ -278,7 +278,7 @@ if (isNil "cTab_vehicleClass_has_TAD") then {
 // strip list of invalid config names and duplicates to save time checking through them later
 _classNames = [];
 {
-	if (isClass (configfile >> "CfgVehicles" >> _x) && _classNames find _x == -1) then {
+	if (isClass (configfile >> "CfgVehicles" >> _x) && _classNames find _x isEqualTo -1) then {
 		0 = _classNames pushBack _x;
 	};
 } count cTab_vehicleClass_has_TAD;
@@ -295,16 +295,16 @@ if (isNil "cTab_helmetClass_has_HCam") then {
 // strip list of invalid config names and duplicates to save time checking through them later
 _classNames = [];
 {
-	if (isClass (configfile >> "CfgWeapons" >> _x) && _classNames find _x == -1) then {
+	if (isClass (configfile >> "CfgWeapons" >> _x) && _classNames find _x isEqualTo -1) then {
 		0 = _classNames pushBack _x;
 	};
 } count cTab_helmetClass_has_HCam;
 // iterate through all class names and add child classes, so we end up with a list of helmet classes that have the defined helmet classes as parents
 {
-	_childClasses = "inheritsFrom _x == (configfile >> 'CfgWeapons' >> '" + _x + "')" configClasses (configfile >> "CfgWeapons");
+	_childClasses = "inheritsFrom _x isEqualTo (configfile >> 'CfgWeapons' >> '" + _x + "')" configClasses (configfile >> "CfgWeapons");
 	{
 		_childClassName = configName _x;
-		if (_classNames find _childClassName == -1) then {
+		if (_classNames find _childClassName isEqualTo -1) then {
 			0 = _classNames pushBack configName _x;
 		};
 	} count _childClasses;
@@ -374,7 +374,7 @@ cTab_fnc_onIfMainPressed = {
 		call cTab_fnc_onIfTertiaryPressed;
 		true
 	};
-	if (!isNil "cTabIfOpen" && {cTabIfOpen select 0 == 0}) exitWith {
+	if (!isNil "cTabIfOpen" && {cTabIfOpen select 0 isEqualTo 0}) exitWith {
 		// close Main
 		call cTab_fnc_close;
 		true
@@ -434,7 +434,7 @@ cTab_fnc_onIfSecondaryPressed = {
 		call cTab_fnc_onIfTertiaryPressed;
 		true
 	};
-	if (!isNil "cTabIfOpen" && {cTabIfOpen select 0 == 1}) exitWith {
+	if (!isNil "cTabIfOpen" && {cTabIfOpen select 0 isEqualTo 1}) exitWith {
 		// close Secondary
 		call cTab_fnc_close;
 		true
@@ -493,7 +493,7 @@ cTab_fnc_onIfTertiaryPressed = {
 		cTabUavViewActive = false;
 		true
 	};
-	if (!isNil "cTabIfOpen" && {cTabIfOpen select 0 == 2}) exitWith {
+	if (!isNil "cTabIfOpen" && {cTabIfOpen select 0 isEqualTo 2}) exitWith {
 		// close Tertiary
 		call cTab_fnc_close;
 		true
@@ -600,7 +600,7 @@ cTab_fnc_mapType_toggle = {
 	_mapTypes = [_displayName,"mapTypes"] call cTab_fnc_getSettings;
 	_currentMapType = [_displayName,"mapType"] call cTab_fnc_getSettings;
 	_currentMapTypeIndex = [_mapTypes,_currentMapType] call BIS_fnc_findInPairs;
-	if (_currentMapTypeIndex == count _mapTypes - 1) then {
+	if (_currentMapTypeIndex isEqualTo count _mapTypes - 1) then {
 		[_displayName,[["mapType",_mapTypes select 0 select 0]]] call cTab_fnc_setSettings;
 	} else {
 		[_displayName,[["mapType",_mapTypes select (_currentMapTypeIndex + 1) select 0]]] call cTab_fnc_setSettings;
@@ -631,7 +631,7 @@ cTab_fnc_mode_toggle = {
 	_mode = [_displayName,"mode"] call cTab_fnc_getSettings;
 
 	call {
-		if (_displayName == "cTab_Android_dlg") exitWith {
+		if (_displayName isEqualTo "cTab_Android_dlg") exitWith {
 			call {
 				if (_mode != "BFT") exitWith {_mode = "BFT"};
 				_mode = "MESSAGE";
@@ -652,7 +652,7 @@ cTab_fnc_toggleNightMode = {
 	_nightMode = [_displayName,"nightMode"] call cTab_fnc_getSettings;
 
 	if (_nightMode != 2) then {
-		if (_nightMode == 0) then {_nightMode = 1} else {_nightMode = 0};
+		if (_nightMode isEqualTo 0) then {_nightMode = 1} else {_nightMode = 0};
 		[_displayName,[["nightMode",_nightMode]]] call cTab_fnc_setSettings;
 	};
 
@@ -910,7 +910,7 @@ cTabOnDrawbftMicroDAGRdlg = {
 // This is drawn every frame on the tablet uav screen. fnc
 cTabOnDrawUAV = {
 	if (isNil 'cTabActUav') exitWith {};
-	if (cTabActUav == player) exitWith {};
+	if (cTabActUav isEqualTo player) exitWith {};
 
 	_cntrlScreen = _this select 0;
 	_display = ctrlParent _cntrlScreen;
@@ -1007,9 +1007,9 @@ cTab_msg_gui_load = {
 		_title =  _x select 0;
 		_msgState = _x select 2;
 		_img = call {
-			if (_msgState == 0) exitWith {"\cTab\img\icoUnopenedmail.paa"};
-			if (_msgState == 1) exitWith {"\cTab\img\icoOpenmail.paa"};
-			if (_msgState == 2) exitWith {"\cTab\img\icon_sentMail_ca.paa"};
+			if (_msgState isEqualTo 0) exitWith {"\cTab\img\icoUnopenedmail.paa"};
+			if (_msgState isEqualTo 1) exitWith {"\cTab\img\icoOpenmail.paa"};
+			if (_msgState isEqualTo 2) exitWith {"\cTab\img\icon_sentMail_ca.paa"};
 		};
 		_index = _msgControl lbAdd _title;
 		_msgControl lbSetPicture [_index,_img];
@@ -1038,7 +1038,7 @@ cTab_msg_get_mailTxt = {
 	_msgName = (_msgArray select _index) select 0;
 	_msgtxt = (_msgArray select _index) select 1;
 	_msgState = (_msgArray select _index) select 2;
-	if (_msgState == 0) then {
+	if (_msgState isEqualTo 0) then {
 		_msgArray set [_index,[_msgName,_msgtxt,1]];
 		cTab_player setVariable [format ["cTab_messages_%1",_playerEncryptionKey],_msgArray];
 	};
@@ -1076,7 +1076,7 @@ cTab_msg_Send = {
 		_data = _plrLBctrl lbData _x;
 		_recip = objNull;
 		{
-			if (_data == str _x) exitWith {_recip = _x;};
+			if (_data isEqualTo str _x) exitWith {_recip = _x;};
 		} count _plrList;
 
 		if !(IsNull _recip) then {
@@ -1096,7 +1096,7 @@ cTab_msg_Send = {
 		_msgArray pushBack [format ["%1 - %2",_time,_recipientNames],_msgBody,2];
 		cTab_player setVariable [format ["cTab_messages_%1",_playerEncryptionKey],_msgArray];
 
-		if (!isNil "cTabIfOpen" && {[cTabIfOpen select 1,"mode"] call cTab_fnc_getSettings == "MESSAGE"}) then {
+		if (!isNil "cTabIfOpen" && {[cTabIfOpen select 1,"mode"] call cTab_fnc_getSettings isEqualTo "MESSAGE"}) then {
 			call cTab_msg_gui_load;
 		};
 
@@ -1125,10 +1125,10 @@ cTab_msg_Send = {
 
 		_msgRecipient setVariable [format ["cTab_messages_%1",_msgEncryptionKey],_msgArray];
 
-		if (_msgRecipient == cTab_player && _sender != cTab_player && {_playerEncryptionKey == _msgEncryptionKey} && {[cTab_player,["ItemcTab","ItemAndroid"]] call cTab_fnc_checkGear}) then {
+		if (_msgRecipient isEqualTo cTab_player && _sender != cTab_player && {_playerEncryptionKey isEqualTo _msgEncryptionKey} && {[cTab_player,["ItemcTab","ItemAndroid"]] call cTab_fnc_checkGear}) then {
 			playSound "cTab_phoneVibrate";
 
-			if (!isNil "cTabIfOpen" && {[cTabIfOpen select 1,"mode"] call cTab_fnc_getSettings == "MESSAGE"}) then {
+			if (!isNil "cTabIfOpen" && {[cTabIfOpen select 1,"mode"] call cTab_fnc_getSettings isEqualTo "MESSAGE"}) then {
 				_nop = [] call cTab_msg_gui_load;
 
 				// add a notification
@@ -1153,9 +1153,9 @@ Returns TRUE
 cTab_Tablet_btnACT = {
 	_mode = ["cTab_Tablet_dlg","mode"] call cTab_fnc_getSettings;
 	call {
-		if (_mode == "UAV") exitWith {[] call cTab_fnc_remoteControlUav;};
-		if (_mode == "HCAM") exitWith {["cTab_Tablet_dlg",[["mode","HCAM_FULL"]]] call cTab_fnc_setSettings;};
-		if (_mode == "HCAM_FULL") exitWith {["cTab_Tablet_dlg",[["mode","HCAM"]]] call cTab_fnc_setSettings;};
+		if (_mode isEqualTo "UAV") exitWith {[] call cTab_fnc_remoteControlUav;};
+		if (_mode isEqualTo "HCAM") exitWith {["cTab_Tablet_dlg",[["mode","HCAM_FULL"]]] call cTab_fnc_setSettings;};
+		if (_mode isEqualTo "HCAM_FULL") exitWith {["cTab_Tablet_dlg",[["mode","HCAM"]]] call cTab_fnc_setSettings;};
 	};
 	true
 };
@@ -1171,7 +1171,7 @@ cTab_fnc_onMsgBtnDelete = {
 	_msgLbCtrl = _display displayCtrl IDC_CTAB_MSG_LIST;
 	_msgLbSelection = lbSelection _msgLbCtrl;
 
-	if (count _msgLbSelection == 0) exitWith {false};
+	if (count _msgLbSelection isEqualTo 0) exitWith {false};
 	_playerEncryptionKey = call cTab_fnc_getPlayerEncryptionKey;
 	_msgArray = cTab_player getVariable [format ["cTab_messages_%1",_playerEncryptionKey],[]];
 

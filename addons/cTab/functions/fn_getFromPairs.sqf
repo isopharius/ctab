@@ -53,7 +53,7 @@ else
 	};
 
 
-	if (_key == (_x select 0)) exitwith
+	if (_key isEqualTo (_x select 0)) exitwith
 	{
 		_value = _x select 1;
 	};

@@ -32,7 +32,7 @@ _pos = _this select 2;
 _secondPos = _this select 3;
 // draw arrow from current position to map centre
 _dirToSecondPos = call {
-	if (_this select 4 == 0) exitWith {
+	if (_this select 4 isEqualTo 0) exitWith {
 		_ctrlScreen drawArrow [_pos,_secondPos,cTabMicroDAGRhighlightColour];
 		[_pos,_secondPos] call cTab_fnc_dirTo
 	};

@@ -45,7 +45,7 @@ _drawText = cTabBFTtxt;
 	_pos = getPosWorld _veh;
 
 	call {
-		if (_mode == 1 && {_iconB != "" && {_veh != _playerVehicle}}) exitWith {
+		if (_mode isEqualTo 1 && {_iconB != "" && {_veh != _playerVehicle}}) exitWith {
 			// Drawing on TAD && vehicle is an air contact
 			call {
 				if (_groupID != "") exitWith {
@@ -84,12 +84,12 @@ _drawText = cTabBFTtxt;
 		_vehIndex = _vehicles find _veh;
 
 		// Only do this if the vehicle has not been drawn yet, or the player is sitting in the same vehicle as the group leader
-		if (_vehIndex != -1 || {_veh == _playerVehicle}) exitWith {
+		if (_vehIndex != -1 || {_veh isEqualTo _playerVehicle}) exitWith {
 			if (_drawText) then {
 				// we want to draw text and the group leader is in a vehicle that has already been drawn
 				_text = _x select 3;
-				// _vehIndex == -1 means that the player sits in the vehicle
-				if (_vehIndex == -1 || {(groupID group _veh) != _text}) then {
+				// _vehIndex isEqualTo -1 means that the player sits in the vehicle
+				if (_vehIndex isEqualTo -1 || {(groupID group _veh) != _text}) then {
 					// group name is not the same as that of the vehicle the leader is sitting in
 					_mountedIndex = _mountedLabels find _veh;
 					if (_mountedIndex != -1) then {
@@ -119,7 +119,7 @@ _drawText = cTabBFTtxt;
 		// get the fire-team color
 		_teamColor = cTabColorTeam select (["MAIN","RED","GREEN","BLUE","YELLOW"] find (assignedTeam (_x select 0)));
 
-		if (_mode != 2 && {_veh == _playerVehicle || {_veh in _vehicles}}) exitWith {
+		if (_mode != 2 && {_veh isEqualTo _playerVehicle || {_veh in _vehicles}}) exitWith {
 			if (_drawText) then {
 				// we want to draw text on anything but MicroDAGR and the unit sits in a vehicle that has already been drawn
 				_mountedIndex = _mountedLabels find _veh;

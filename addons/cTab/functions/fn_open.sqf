@@ -52,7 +52,7 @@ cTabIfOpen = [_interfaceType,_displayName,_player,
 
 if (_vehicle != _player && (_isDialog || _displayName in ["cTab_TAD_dsp"])) then {
 	cTabIfOpen set [5,
-		_vehicle addEventHandler ["GetOut",{if (_this select 2 == cTab_player) then {[] call cTab_fnc_close}}]
+		_vehicle addEventHandler ["GetOut",{if (_this select 2 isEqualTo cTab_player) then {[] call cTab_fnc_close}}]
 	];
 };
 
@@ -101,7 +101,7 @@ if (_displayName in ["cTab_TAD_dsp","cTab_TAD_dlg"]) then {
 if (isClass (configfile >> "CfgPatches" >> "ace_medical")) then {
 	cTabIfOpen set [7,
 		["medical_onUnconscious",{
-			if (_this select 0 == cTab_player && _this select 1) then {
+			if (_this select 0 isEqualTo cTab_player && _this select 1) then {
 				[] call cTab_fnc_close;
 			};
 		}] call ace_common_fnc_addEventHandler

@@ -1,6 +1,6 @@
 /*
 	Name: cTab_fnc_updateLists
-	
+
 	Author(s):
 		Gundy, Riouken
 
@@ -12,20 +12,20 @@
 			cTabBFTvehicles
 			cTabUAVlist
 			cTabHcamlist
-		
+
 		List format (all except cTabHcamlist):
 			Index 0: Unit object
 			Index 1: Path to icon A
 			Index 2: Path to icon B (either group size or wingmen)
 			Index 3: Text to display
 			Index 4: String of group index
-	
+
 	Parameters:
 		NONE
-	
+
 	Returns:
 		BOOLEAN - Always TRUE
-	
+
 	Example:
 		call cTab_fnc_updateLists;
 */
@@ -91,7 +91,7 @@ Vehciles on our side, that are not empty and that player is not sitting in.
 			if !(_customName isEqualTo "") exitWith {
 				_name = _customName;
 			};
-			if (group _x == _playerGroup) then {
+			if (group _x isEqualTo _playerGroup) then {
 				_groupID = str([_x] call CBA_fnc_getGroupIndex)
 			};
 			_name = groupID group _x;
