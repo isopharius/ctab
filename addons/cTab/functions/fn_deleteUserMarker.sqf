@@ -50,7 +50,7 @@ call {
 
 				// Send deleteUserMarker command to all clients
 				cTab_userMarkerTransactionId = cTab_userMarkerTransactionId + 1;
-				[[_encryptionKey,_markerIndex,cTab_userMarkerTransactionId],"cTab_fnc_deleteUserMarker",true,false,true] call bis_fnc_MP;
+				[_encryptionKey,_markerIndex,cTab_userMarkerTransactionId] remoteExecCall ["cTab_fnc_deleteUserMarker",0,false];
 
 				// If this was run on a client-server (i.e. in single player or locally hosted), update the marker list
 				if (hasInterface && {_encryptionKey isEqualTo call cTab_fnc_getPlayerEncryptionKey}) then {
@@ -94,7 +94,7 @@ call {
 
 	// If received on a client, to be sent to the server
 	if (hasInterface) then {
-		[_this,"cTab_fnc_deleteUserMarker",false,false,true] call bis_fnc_MP;
+		_this remoteExecCall ["cTab_fnc_deleteUserMarker",2,false];
 	};
 };
 

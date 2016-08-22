@@ -30,13 +30,11 @@
 		[[userMarkerList],157] call cTab_fnc_getUserMarkerList;
 */
 
-private [];
-
 call {
 	// Send request to Server
 	if (count _this isEqualTo 0) exitWith {
 		if (hasInterface && !isServer) then {
-			[[player],"cTab_fnc_getUserMarkerList",false,false,true] call bis_fnc_MP;
+			[player] remoteExecCall ["cTab_fnc_getUserMarkerList",2,false];
 		};
 	};
 
@@ -44,7 +42,7 @@ call {
 	// Only send the list if the transaction ID is not at its initial value, meaning the list is likely to have some meaningful data
 	if (count _this isEqualTo 1) exitWith {
 		if (isServer && !hasInterface && (cTab_userMarkerTransactionId >= 0)) then {
-			[[cTab_userMarkerLists,cTab_userMarkerTransactionId],"cTab_fnc_getUserMarkerList",_this select 0,false,true] call bis_fnc_MP;
+			[cTab_userMarkerLists,cTab_userMarkerTransactionId] remoteExecCall ["cTab_fnc_getUserMarkerList",_this select 0,false];
 		};
 	};
 

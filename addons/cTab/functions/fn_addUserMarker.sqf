@@ -83,7 +83,7 @@ call {
 			[cTab_userMarkerLists,_encryptionKey,[[_transactionId,_markerData]]] call cTab_fnc_addToPairs;
 
 			// Send addUserMarker command to all clients
-			[[_encryptionKey,[_transactionId,_markerData],_transactionId],"cTab_fnc_addUserMarker",true,false,true] call bis_fnc_MP;
+			[_encryptionKey, [_transactionId, _markerData], _transactionId] remoteExecCall ["cTab_fnc_addUserMarker",0,false];
 
 			// If this was run on a client-server (i.e. in single player or locally hosted), update the marker list
 			if (hasInterface && {_encryptionKey isEqualTo call cTab_fnc_getPlayerEncryptionKey}) then {
@@ -124,7 +124,7 @@ call {
 
 	// If received on a client, to be sent to the server
 	if (hasInterface) then {
-		[_this,"cTab_fnc_addUserMarker",false,false,true] call bis_fnc_MP;
+		_this remoteExecCall ["cTab_fnc_addUserMarker",2,false];
 	};
 };
 
