@@ -84,7 +84,7 @@ call {
 			// If this was run on a client-server (i.e. in single player or locally hosted), update the marker list
 			if (hasInterface && {_encryptionKey isEqualTo call cTab_fnc_getPlayerEncryptionKey}) then {
 				call cTab_fnc_updateUserMarkerList;
-				if !((_markerData select 5) isEqualTo cTab_player) then {
+				if ((_markerData select 5) != cTab_player) then {
 					["BFT",format ["New marker at #%1",mapGridPosition (_markerData select 0)],20] call cTab_fnc_addNotification;
 				} else {
 					["BFT","Marker added succesfully",3] call cTab_fnc_addNotification;
@@ -97,7 +97,7 @@ call {
 	if (hasInterface && !isNil "_transactionId") exitWith {
 		call {
 			if (cTab_userMarkerTransactionId isEqualTo _transactionId) exitWith {};
-			if !(cTab_userMarkerTransactionId isEqualTo (_transactionId -1)) exitWith {
+			if (cTab_userMarkerTransactionId != (_transactionId -1)) exitWith {
 				// get full list
 				["Transaction ID check failed! Had %1, received %2. Requesting user marker list.",cTab_userMarkerTransactionId,_transactionId] call bis_fnc_error;
 				[] call cTab_fnc_getUserMarkerList;
@@ -105,11 +105,11 @@ call {
 			cTab_userMarkerTransactionId = _transactionId;
 			[cTab_userMarkerLists,_encryptionKey,[_markerData]] call cTab_fnc_addToPairs;
 			// only update the user marker list if the marker was added to the player's side
-			if (_encryptionKeyisEqualTo call cTab_fnc_getPlayerEncryptionKey) then {
+			if (_encryptionKey isEqualTo call cTab_fnc_getPlayerEncryptionKey) then {
 				call cTab_fnc_updateUserMarkerList;
 
 				// add notification if marker was issued by someone else
-				if !((_markerData select 1 select 5) isEqualTo cTab_player) then {
+				if ((_markerData select 1 select 5) != cTab_player) then {
 					["BFT",format ["New marker at #%1",mapGridPosition (_markerData select 1 select 0)],20] call cTab_fnc_addNotification;
 				} else {
 					["BFT","Marker added succesfully",3] call cTab_fnc_addNotification;

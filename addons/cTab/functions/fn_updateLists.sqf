@@ -88,7 +88,7 @@ Vehciles on our side, that are not empty and that player is not sitting in.
 		_name = "";
 		_customName = _x getVariable ["cTab_groupId",""];
 		call {
-			if !(_customName isEqualTo "") exitWith {
+			if (_customName != "") exitWith {
 				_name = _customName;
 			};
 			if (group _x isEqualTo _playerGroup) then {
@@ -153,11 +153,11 @@ _updateInterface = [];
 cTabBFTmembers = [] + _cTabBFTmembers;
 cTabBFTgroups = [] + _cTabBFTgroups;
 cTabBFTvehicles = [] + _cTabBFTvehicles;
-if !(cTabUAVlist isEqualTo _cTabUAVlist) then {
+if (cTabUAVlist != _cTabUAVlist) then {
 	cTabUAVlist = [] + _cTabUAVlist;
 	_updateInterface pushBack ["uavListUpdate",true];
 };
-if !(cTabHcamlist isEqualTo _cTabHcamlist) then {
+if (cTabHcamlist != _cTabHcamlist) then {
 	cTabHcamlist = [] + _cTabHcamlist;
 	_updateInterface pushBack ["hCamListUpdate",true];
 };
