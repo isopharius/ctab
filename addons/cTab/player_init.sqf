@@ -53,7 +53,7 @@ cTabNotificationCache = [];
 // set current player object in cTab_player and run a check on every frame to see if there is a change
 cTab_player = objNull;
 ["cTab_checkForPlayerChange", "onEachFrame", {
-	if (cTab_player != (missionNamespace getVariable ["BIS_fnc_moduleRemoteControl_unit",player])) then {
+	if !(cTab_player isEqualTo (missionNamespace getVariable ["BIS_fnc_moduleRemoteControl_unit",player])) then {
 		cTab_player = missionNamespace getVariable ["BIS_fnc_moduleRemoteControl_unit",player];
 		// close any interface that might still be open
 		call cTab_fnc_close;

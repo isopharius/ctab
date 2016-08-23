@@ -78,7 +78,7 @@ if (!alive _uav) exitWith {false};
 } count _uavCams;
 
 // set up event handler
-if (cTabUAVcams != []) exitWith {
+if !(cTabUAVcams isEqualTo []) exitWith {
 	if (isNil "cTabUavEventHandle") then {
 		cTabUavEventHandle = addMissionEventHandler ["Draw3D",{
 			{

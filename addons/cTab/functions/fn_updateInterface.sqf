@@ -70,7 +70,7 @@ if (isNil "_mode") then {
 				_backgroundConfigPositionX = _backgroundPosition select 1 select 0;
 
 				// figure out if we need to do anything
-				if ((_backgroundPositionX != _backgroundConfigPositionX) != _dspIfPosition) then {
+				if !((_backgroundPositionX != _backgroundConfigPositionX) isEqualTo _dspIfPosition) then {
 					// calculate offset required to shift position to the opposite
 					_xOffset = if (_backgroundPositionX isEqualTo _backgroundConfigPositionX) then {
 							2 * safeZoneX + safeZoneW - _backgroundPositionW - 2 * _backgroundPositionX
