@@ -24,12 +24,9 @@
 
 #include "\cTab\shared\cTab_gui_macros.hpp"
 
-private ["_display","_ctrlScreen","_pos","_secondPos","_dirToSecondPos","_dstToSecondPos"];
+params ["_display","_ctrlScreen","_pos","_secondPos"];
+private ["_dirToSecondPos","_dstToSecondPos"];
 
-_display = _this select 0;
-_ctrlScreen = _this select 1;
-_pos = _this select 2;
-_secondPos = _this select 3;
 // draw arrow from current position to map centre
 _dirToSecondPos = call {
 	if (_this select 4 isEqualTo 0) exitWith {

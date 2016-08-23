@@ -26,10 +26,9 @@
 		[_ctrlScreen,0] call cTab_fnc_drawBftMarkers;
 */
 
-private ["_ctrlScreen","_mode","_veh","_iconB","_text","_groupID","_pos","_vehicles","_vehIndex","_mountedLabels","_mountedIndex","_drawText","_playerVehicle","_playerGroup","_teamColor"];
+params ["_ctrlScreen","_mode"];
+private ["_veh","_iconB","_text","_groupID","_pos","_vehicles","_vehIndex","_mountedLabels","_mountedIndex","_drawText","_playerVehicle","_playerGroup","_teamColor"];
 
-_ctrlScreen = _this select 0;
-_mode = _this select 1;
 _vehicles = [];
 _playerVehicle = vehicle cTab_player;
 _playerGroup = group cTab_player;

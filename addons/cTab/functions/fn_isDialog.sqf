@@ -21,11 +21,9 @@
 		["cTab_TAD_dsp"] call cTab_fnc_isDialog;
 */
 
-private ["_interfaceName","_subArray"];
-
-_interfaceName = _this select 0;
+params ["_interfaceName"];
 
 // select the last three characters from the interface name
-_subString = _interfaceName select [(count _interfaceName) - 3];
+private _subString = _interfaceName select [(count _interfaceName) - 3];
 
 if (_subString isEqualTo "dlg") then {true} else {false};

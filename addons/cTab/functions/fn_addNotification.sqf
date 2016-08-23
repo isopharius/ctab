@@ -17,12 +17,9 @@
  *
  * Public: No
  */
+params ["_appID","_notification","_decayTime"];
+private ["_done","_decayTime"];
 
-private ["_appID","_notification","_time","_done","_decayTime"];
-
-_appID = _this select 0;
-_notification = _this select 1;
-_decayTime = _this select 2;
 _time = [] call cTab_fnc_currentTime;
 _done = false;
 

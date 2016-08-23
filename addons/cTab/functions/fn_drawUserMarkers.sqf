@@ -1,12 +1,12 @@
 /*
 	Name: cTab_fnc_drawUserMarkers
-	
+
 	Author(s):
 		Gundy, Riouken
 
 	Description:
 		Draw userMarkers held in cTabUserMarkerList to map control
-		
+
 		List format:
 			Index 0: ARRAY  - marker position
 			Index 1: STRING - path to marker icon
@@ -15,21 +15,21 @@
 			Index 4: ARRAY  - marker color
 			Index 5: STRING - marker time
 			Index 6: STRING - text alignment
-	
+
 	Parameters:
 		0: OBJECT  - Map control to draw BFT icons on
 		1: BOOLEAN - Highlight marker under cursor
-	
+
 	Returns:
 		BOOLEAN - Always TRUE
-	
+
 	Example:
 		[_ctrlScreen] call cTab_fnc_drawUserMarkers;
 */
 
-private ["_ctrlScreen","_arrowLength","_pos","_secondPos","_texture1","_texture2","_dir","_color","_text","_align","_cursorMarkerIndex","_markerData"];
+params ["_ctrlScreen"];
+private ["_arrowLength","_pos","_secondPos","_texture1","_texture2","_dir","_color","_text","_align","_cursorMarkerIndex","_markerData"];
 
-_ctrlScreen = _this select 0;
 _arrowLength = cTabUserMarkerArrowSize * ctrlMapScale _ctrlScreen;
 _cursorMarkerIndex = if (_this select 1) then {[_ctrlScreen,cTabMapCursorPos] call cTab_fnc_findUserMarker} else {-1};
 {

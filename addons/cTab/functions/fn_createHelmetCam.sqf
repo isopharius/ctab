@@ -18,10 +18,8 @@
 		["rendertarget12",str player] spawn cTab_fnc_createHelmetCam;
 */
 
-private ["_renderTarget","_data","_newHost","_camOffSet","_targetOffSet","_oldCam","_oldHost","_nop","_target","_cam"];
-
-_renderTarget = _this select 0;
-_data = _this select 1;
+params ["_renderTarget","_data"];
+private ["_newHost","_camOffSet","_targetOffSet","_oldCam","_oldHost","_nop","_target","_cam"];
 
 _newHost = objNull;
 _camOffSet = [];
@@ -71,7 +69,8 @@ if (!isNil "cTabHcams") then {
 // only continue if there is no helmet cam currently set up
 if (!isNil "cTabHcams") exitWith {true};
 
-_target = "Sign_Sphere10cm_F" createVehicleLocal position player;
+_target = "Sign_Sphere10cm_F" createVehicleLocal [0,0,0];
+_target setPos (position player);
 hideObject _target;
 _target attachTo [_newHost,_targetOffSet];
 

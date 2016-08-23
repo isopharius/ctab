@@ -34,9 +34,8 @@
 		[[1714.35,5716.82],0,0,0,"12:00"] call cTab_fnc_translateUserMarker;
 */
 
-private ["_pos","_markerIcon","_texture1","_markerSize","_texture2","_markerDir","_dir","_text","_align"];
-
-_pos = _this select 0;
+params ["_pos"];
+private ["_markerIcon","_texture1","_markerSize","_texture2","_markerDir","_dir","_text","_align"];
 
 _color = cTabColorRed;
 _markerIcon = _this select 1;

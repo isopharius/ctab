@@ -15,10 +15,8 @@
 	* if not found: nil or _defaultValue
 */
 
-private ["_pairs","_key","_default","_value"];
-
-_pairs 	 = [_this,0,[],[[]]] call bis_fnc_param;
-_key 	 = [_this,1,"",[""]] call bis_fnc_param;
+params [["_pairs",[],[[]]],["_key","",[""]]];
+private ["_default","_value"];
 
 if (count _this > 2) then
 {

@@ -34,10 +34,11 @@
 
 #include "\cTab\shared\cTab_gui_macros.hpp"
 
-private ["_interfaceType","_displayName","_player","_vehicle","_playerKilledEhId","_vehicleGetOutEhId"];
-
 if (cTabIfOpenStart || (!isNil "cTabIfOpen")) exitWith {false};
 cTabIfOpenStart = true;
+
+params ["_interfaceType","_displayName","_player","_vehicle"];
+private ["_playerKilledEhId","_vehicleGetOutEhId"];
 
 _interfaceType = _this select 0;
 _displayName = _this select 1;

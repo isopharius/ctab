@@ -19,9 +19,9 @@
 		(findDisplay 312) displayAddEventHandler ["KeyUp", "[_this, 'keyup'] call cTab_fnc_processCuratorKey"];
 */
 
-private ["_keys", "_pressed", "_result"];
+params ["_pressed"];
+private "_result";
 
-_pressed = _this select 0;
 _result = false;
 
 _processKeys = {

@@ -18,9 +18,7 @@
 		player call cTab_fnc_getInfMarkerIcon;
 */
 
-private "_unit";
-
-_unit = _this;
+private _unit = _this;
 
 if (getNumber(configFile >> "CfgVehicles" >> typeOf(_unit) >> "attendant") isEqualTo 1) exitWith {
 	"\A3\ui_f\data\map\vehicleicons\iconManMedic_ca.paa"

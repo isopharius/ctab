@@ -17,8 +17,6 @@
 		['cTab_TAD_dlg'] call cTab_fnc_centerMapOnPlayerPosition;
 */
 
-private [];
-
 [_this select 0,[["mapWorldPos",getPosWorld vehicle cTab_player]],true,true] call cTab_fnc_setSettings;
 
 true

@@ -23,10 +23,10 @@
 		[str _uavVehicle,[[0,"rendertarget8"],[1,"rendertarget9"]]] call cTab_fnc_createUavCam;
 */
 
-private ["_renderTarget","_data","_seat","_uav","_uavCams","_seatName","_camPosMemPt","_camDirMemPt","_cam"];
+params ["_data",["_uavCams",""]];
+private ["_renderTarget","_seat","_uav","_seatName","_camPosMemPt","_camDirMemPt","_cam"];
 
 _uav = objNull;
-_data = _this select 0;
 
 // see if given UAV name is still in the list of valid UAVs
 {
@@ -42,7 +42,6 @@ if (isNull _uav) exitWith {false};
 // exit if requested UAV is not alive
 if (!alive _uav) exitWith {false};
 
-_uavCams = _this select 1;
 {
 	_seat = _x select 0;
 	_renderTarget = _x select 1;

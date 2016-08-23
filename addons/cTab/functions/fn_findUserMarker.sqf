@@ -1,6 +1,6 @@
 /*
  	Name: cTab_fnc_findUserMarker
- 	
+
  	Author(s):
 		Gundy, Riouken
 
@@ -10,10 +10,10 @@
 	Parameters:
 		0: OBJECT - Map control we took the position from
 		1: ARRAY  - Position to look for marker
- 	
+
  	Returns:
 		INTEGER - Index of user marker, if not found -1
- 	
+
  	Example:
 		_markerIndex = [_ctrlScreen,[0,0]] call cTab_fnc_findUserMarker;
 */

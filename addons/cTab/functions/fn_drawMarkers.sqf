@@ -17,9 +17,9 @@
 		[_ctrlScreen] call cTab_fnc_drawMarkers;
 */
 
-private ["_ctrlScreen","_marker","_pos","_type","_size","_icon","_colorType","_color","_brush","_brushType","_shape","_alpha","_dir","_text"];
+params ["_ctrlScreen"];
+private ["_marker","_pos","_type","_size","_icon","_colorType","_color","_brush","_brushType","_shape","_alpha","_dir","_text"];
 
-_ctrlScreen = _this select 0;
 {
 
 	_marker = _x;
