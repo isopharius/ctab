@@ -32,10 +32,15 @@ _type = _this select 2;
 // Check if vehicle is a parachute, if so, return false
 if (_vehicle isKindOf "ParachuteBase") exitWith {false};
 
-switch (_type) do {
-    case "FBCB2": {_typeClassList = cTab_vehicleClass_has_FBCB2;};
-	case "TAD": {_typeClassList = cTab_vehicleClass_has_TAD;};
-	default {_typeClassList = [];};
+call {
+	if (_type isEqualTo "FBCB2") exitWith {
+		_typeClassList = cTab_vehicleClass_has_FBCB2;
+	};
+	if (_type isEqualTo "TAD") then {
+		_typeClassList = cTab_vehicleClass_has_TAD;
+	} else {
+		_typeClassList = [];
+	};
 };
 
 {

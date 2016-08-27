@@ -21,7 +21,6 @@ params ["_ctrlScreen"];
 private ["_marker","_pos","_type","_size","_icon","_colorType","_color","_brush","_brushType","_shape","_alpha","_dir","_text"];
 
 {
-
 	_marker = _x;
 
 	_pos = getMarkerPos _marker;
@@ -49,14 +48,14 @@ private ["_marker","_pos","_type","_size","_icon","_colorType","_color","_brush"
 	_dir = markerDir _marker;
 	_text = markerText _marker;
 
-	switch (_shape) do {
-	    case "ICON": {
-	    	_ctrlScreen drawIcon [_icon,_color,_pos,(_size select 0) * cTabIconSize,(_size select 1) * cTabIconSize,_dir,_text,0,cTabTxtSize,"TahomaB","right"];
-	    };
-	    case "RECTANGLE": {
+	call {
+		if (_shape isEqualTo "ICON") exitWith {
+			_ctrlScreen drawIcon [_icon,_color,_pos,(_size select 0) * cTabIconSize,(_size select 1) * cTabIconSize,_dir,_text,0,cTabTxtSize,"TahomaB","right"];
+		};
+		if (_shape isEqualTo "RECTANGLE") exitWith {
 	    	_ctrlScreen drawRectangle [_pos,_size select 0,_size select 1,_dir,_color,_brush];
 		};
-		case "ELLIPSE": {
+		if (_shape isEqualTo "ELLIPSE") then {
 	    	_ctrlScreen drawEllipse [_pos,_size select 0,_size select 1,_dir,_color,_brush];
 		};
 	};

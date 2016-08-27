@@ -77,34 +77,31 @@ if (_index isEqualTo -1) then
 //key found, add the value to existing entry
 else
 {
-	_tValue = typeName _value;
-	_tAdd = typeName _add;
-
-	switch (true) do
+	call
 	{
-		case (_tValue isEqualTo SCALAR && _tAdd isEqualTo SCALAR):
+		_tValue = typeName _value;
+		_tAdd = typeName _add;
+		if (_tValue isEqualTo "SCALAR" && _tAdd isEqualTo "SCALAR") exitWith
 		{
 			_return = _value + _add;
 		};
-		case (_tValue isEqualTo ARRAY && _tAdd isEqualTo ARRAY):
+		if (_tValue isEqualTo "ARRAY" && _tAdd isEqualTo "ARRAY") exitWith
 		{
 			_return = _value + _add;
 		};
-		case (_tValue isEqualTo ARRAY):
+		if (_tValue isEqualTo "ARRAY") exitWith
 		{
 			_return = _value + [_add];
 		};
-		case (_tAdd isEqualTo ARRAY):
+		if (_tAdd isEqualTo "ARRAY") then
 		{
 			_return = _add + [_value];
-		};
-
-		//none of the items are of array, so create one and store them there
-		default
-		{
+		} else {
+			//none of the items are of array, so create one and store them there
 			_return = _value + [_add];
 		};
 	};
+
 	_pairs set [_index, [_key, _return]];
 };
 
