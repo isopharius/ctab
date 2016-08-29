@@ -8,8 +8,8 @@
 					{
 						for [{_i=_wp},{_i < (count _wps)},{_i=_i+1}] do
 						{
-							_posa = _posa + [getWPPos [_pgroup, _i]];
-							_types = _types + [waypointType [_pgroup, _i]];
+							_posa pushBack (getWPPos [_pgroup, _i]);
+							_types pushBack (waypointType [_pgroup, _i]);
 						};
 					};
 

@@ -31,7 +31,7 @@ _data = [_displayName,"uavCam"] call cTab_fnc_getSettings;
 if !(isNull _uav) exitWith {
 	_camPos = _this select 0;
 	if (count _camPos isEqualTo 2) then {
-		_camPos = _camPos + [getTerrainHeightASL _camPos];
+		_camPos pushBack (getTerrainHeightASL _camPos);
 	};
 	_uav lockCameraTo [_camPos,[0]];
 
