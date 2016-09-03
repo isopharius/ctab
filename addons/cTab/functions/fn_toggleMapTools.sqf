@@ -19,9 +19,8 @@
 */
 
 params ["_displayName"];
-private ["_currentMapTools","_newMapTools"];
 
-_currentMapTools = [_displayName,"mapTools"] call cTab_fnc_getSettings;
-_newMapTools = if (_currentMapTools) then {false} else {true};
+private _currentMapTools = [_displayName,"mapTools"] call cTab_fnc_getSettings;
+private _newMapTools = if (_currentMapTools) then {false} else {true};
 [_displayName,[["mapTools",_newMapTools]]] call cTab_fnc_setSettings;
 _newMapTools

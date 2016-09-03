@@ -24,7 +24,7 @@
 		["bluefor",5,158] call cTab_fnc_deleteUserMarker;
 */
 
-params ["_encryptionKey","_markerIndex",["_transactionId",""]];
+params ["_encryptionKey","_markerIndex","_transactionId"];
 private ["_userMarkerList","_removeIndex"];
 
 call {

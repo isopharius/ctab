@@ -4,7 +4,7 @@
 					_posa = [getPosWorld _unit];
 					_types = ["None"];
 
-					if ((count _wps > 1) && (_wp < count _wps)) then
+					if ((count _wps > 1) && {(_wp < count _wps)}) then
 					{
 						for [{_i=_wp},{_i < (count _wps)},{_i=_i+1}] do
 						{
@@ -15,7 +15,7 @@
 
 					for [{_i=0},{_i<10},{_i=_i+1}] do
 					{
-						if ((_i < (count _wps - 1)) && (count _posa > _i + 1)) then
+						if ((_i < (count _wps - 1)) && {(count _posa > _i + 1)}) then
 						{
 							_poso = _posa select _i;
 							_post = _posa select _i + 1;

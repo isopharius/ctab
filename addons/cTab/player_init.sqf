@@ -261,7 +261,7 @@ if (isNil "cTab_vehicleClass_has_FBCB2") then {
 // strip list of invalid config names and duplicates to save time checking through them later
 _classNames = [];
 {
-	if (isClass (configfile >> "CfgVehicles" >> _x) && _classNames find _x isEqualTo -1) then {
+	if (isClass (configfile >> "CfgVehicles" >> _x) && {_classNames find _x isEqualTo -1}) then {
 		0 = _classNames pushBack _x;
 	};
 } count cTab_vehicleClass_has_FBCB2;
@@ -278,7 +278,7 @@ if (isNil "cTab_vehicleClass_has_TAD") then {
 // strip list of invalid config names and duplicates to save time checking through them later
 _classNames = [];
 {
-	if (isClass (configfile >> "CfgVehicles" >> _x) && _classNames find _x isEqualTo -1) then {
+	if (isClass (configfile >> "CfgVehicles" >> _x) && {_classNames find _x isEqualTo -1}) then {
 		0 = _classNames pushBack _x;
 	};
 } count cTab_vehicleClass_has_TAD;
@@ -295,7 +295,7 @@ if (isNil "cTab_helmetClass_has_HCam") then {
 // strip list of invalid config names and duplicates to save time checking through them later
 _classNames = [];
 {
-	if (isClass (configfile >> "CfgWeapons" >> _x) && _classNames find _x isEqualTo -1) then {
+	if (isClass (configfile >> "CfgWeapons" >> _x) && {_classNames find _x isEqualTo -1}) then {
 		0 = _classNames pushBack _x;
 	};
 } count cTab_helmetClass_has_HCam;
@@ -374,7 +374,7 @@ cTab_fnc_onIfMainPressed = {
 		call cTab_fnc_onIfTertiaryPressed;
 		true
 	};
-	if (!isNil "cTabIfOpen" && {cTabIfOpen select 0 isEqualTo 0}) exitWith {
+	if (!isNil "cTabIfOpen" && {(cTabIfOpen select 0) isEqualTo 0}) exitWith {
 		// close Main
 		call cTab_fnc_close;
 		true
@@ -463,7 +463,7 @@ cTab_fnc_onIfSecondaryPressed = {
 		""
 	};
 
-	if (_interfaceName != "" && _interfaceName != _previousInterface) exitWith {
+	if (_interfaceName != "" && {_interfaceName != _previousInterface}) exitWith {
 		// queue the start up of the interface as we might still have one closing down
 		[{
 			if (isNil "cTabIfOpen") then {
@@ -522,7 +522,7 @@ cTab_fnc_onIfTertiaryPressed = {
 		""
 	};
 
-	if (_interfaceName != "" && _interfaceName != _previousInterface) exitWith {
+	if (_interfaceName != "" && {_interfaceName != _previousInterface}) exitWith {
 		// queue the start up of the interface as we might still have one closing down
 		[{
 			if (isNil "cTabIfOpen") then {
@@ -564,7 +564,7 @@ Returns TRUE when action was taken
 Returns FALSE when no action was taken (i.e. no interface open, or unsupported interface)
 */
 cTab_fnc_onZoomOutPressed = {
-	if (cTabIfOpenStart || (isNil "cTabIfOpen")) exitWith {false};
+	if (cTabIfOpenStart || {(isNil "cTabIfOpen")}) exitWith {false};
 	_displayName = cTabIfOpen select 1;
 	if !([_displayName] call cTab_fnc_isDialog) exitWith {
 		_mapScale = ([_displayName,"mapScaleDsp"] call cTab_fnc_getSettings) * 2;
@@ -1125,7 +1125,7 @@ cTab_msg_Send = {
 
 		_msgRecipient setVariable [format ["cTab_messages_%1",_msgEncryptionKey],_msgArray];
 
-		if (_msgRecipient isEqualTo cTab_player && _sender != cTab_player && {_playerEncryptionKey isEqualTo _msgEncryptionKey} && {[cTab_player,["ItemcTab","ItemAndroid"]] call cTab_fnc_checkGear}) then {
+		if (_msgRecipient isEqualTo cTab_player && {_sender != cTab_player} && {_playerEncryptionKey isEqualTo _msgEncryptionKey} && {[cTab_player,["ItemcTab","ItemAndroid"]] call cTab_fnc_checkGear}) then {
 			playSound "cTab_phoneVibrate";
 
 			if (!isNil "cTabIfOpen" && {[cTabIfOpen select 1,"mode"] call cTab_fnc_getSettings isEqualTo "MESSAGE"}) then {

@@ -118,7 +118,7 @@ Vehciles on our side, that are not empty and that player is not sitting in.
 			if (_x isKindOf "StaticMortar") exitWith {_iconA = "\A3\ui_f\data\map\markers\nato\b_mortar.paa";};
 		};
 		call {
-			if (_iconA isEqualTo "" && {!(_x isKindOf "Static")} && {!(_x isKindOf "StaticWeapon")}) then {_iconA = "\A3\ui_f\data\map\markers\nato\b_unknown.paa";};
+			if ((_iconA isEqualTo "") && {!(_x isKindOf "Static")} && {!(_x isKindOf "StaticWeapon")}) then {_iconA = "\A3\ui_f\data\map\markers\nato\b_unknown.paa";};
 			if (_iconA isEqualTo "") exitWith {};
 			0 = _cTabBFTvehicles pushBack [_x,_iconA,_iconB,_name,_groupID];
 		};
@@ -153,11 +153,11 @@ _updateInterface = [];
 cTabBFTmembers = [] + _cTabBFTmembers;
 cTabBFTgroups = [] + _cTabBFTgroups;
 cTabBFTvehicles = [] + _cTabBFTvehicles;
-if (cTabUAVlist != _cTabUAVlist) then {
+if !(cTabUAVlist isEqualTo _cTabUAVlist) then {
 	cTabUAVlist = [] + _cTabUAVlist;
 	_updateInterface pushBack ["uavListUpdate",true];
 };
-if (cTabHcamlist != _cTabHcamlist) then {
+if !(cTabHcamlist isEqualTo _cTabHcamlist) then {
 	cTabHcamlist = [] + _cTabHcamlist;
 	_updateInterface pushBack ["hCamListUpdate",true];
 };

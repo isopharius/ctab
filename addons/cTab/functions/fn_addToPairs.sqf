@@ -81,11 +81,7 @@ else
 	{
 		_tValue = typeName _value;
 		_tAdd = typeName _add;
-		if (_tValue isEqualTo "SCALAR" && _tAdd isEqualTo "SCALAR") exitWith
-		{
-			_return = _value + _add;
-		};
-		if (_tValue isEqualTo "ARRAY" && _tAdd isEqualTo "ARRAY") exitWith
+		if ((_tValue isEqualTo "SCALAR" && {_tAdd isEqualTo "SCALAR"}) || {(_tValue isEqualTo "ARRAY" && {_tAdd isEqualTo "ARRAY"})}) exitWith
 		{
 			_return = _value + _add;
 		};

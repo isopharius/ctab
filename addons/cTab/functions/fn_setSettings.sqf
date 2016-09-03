@@ -53,7 +53,7 @@ _combinedPropertiesUpdate = [];
 		_currentValue = [_groupProperties,_key] call cTab_fnc_getFromPairs;
 		if (!isNil "_currentValue") exitWith {
 			call {
-				if (_currentValue != _value) exitWith {
+				if !(_currentValue isEqualTo _value) exitWith {
 					[_combinedPropertiesUpdate,_key,_value] call BIS_fnc_setToPairs;
 					[_groupProperties,_key,_value] call BIS_fnc_setToPairs;
 				};
@@ -65,7 +65,7 @@ _combinedPropertiesUpdate = [];
 		_currentValue = [_commonProperties,_key] call cTab_fnc_getFromPairs;
 		if (!isNil "_currentValue") then {
 			call {
-				if (_currentValue != _value) then {
+				if !(_currentValue isEqualTo _value) then {
 					[_commonPropertiesUpdate,_key,_value] call BIS_fnc_setToPairs;
 					[_commonProperties,_key,_value] call BIS_fnc_setToPairs;
 				};
@@ -92,6 +92,6 @@ if (!isNil "cTabIfOpen") then {
 	};
 };
 
-if (_combinedPropertiesUpdate isEqualTo [] && _combinedPropertiesUpdate isEqualTo []) exitWith {false};
+if (_combinedPropertiesUpdate isEqualTo [] && {_commonPropertiesUpdate isEqualTo []}) exitWith {false};
 
 true

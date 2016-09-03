@@ -24,7 +24,7 @@
 		["bluefor",[21,[[1714.35,5716.82],0,0,0,"12:00",player]],157]call cTab_fnc_addUserMarker;
 */
 
-params ["_encryptionKey","_markerData",["_transactionId",""]];
+params ["_encryptionKey", "_markerData", "_transactionId"];
 
 call {
 	// If received on the server

@@ -22,17 +22,17 @@ private ["_displayName","_display","_ctrl","_currentTime","_text","_notification
 disableSerialization;
 
 // make sure there is no PFH already, the interface is open and notifications are available
-if (isNil "cTabProcessNotificationsPFH" && !(isNil "cTabIfOpen") && count cTabNotificationCache != 0) then {
+if (isNil "cTabProcessNotificationsPFH" && {!(isNil "cTabIfOpen")} && {count cTabNotificationCache != 0}) then {
 	_displayName = cTabIfOpen select 1;
 	_display = uiNamespace getVariable _displayName;
 	_ctrl = _display displayCtrl IDC_CTAB_NOTIFICATION;
-	
+
 	// only proceed if there is a notification control
 	if (!isNull _ctrl) then {
 		// run every 4 seconds
 		cTabProcessNotificationsPFH = [{
 			private ["_ctrl","_notification","_currentTime","_text"];
-			
+
 			if !(isNil "cTabIfOpen") then {
 				if (count cTabNotificationCache != 0) then {
 					// grab and delete the oldest notification
@@ -49,7 +49,7 @@ if (isNil "cTabProcessNotificationsPFH" && !(isNil "cTabIfOpen") && count cTabNo
 					if ((_notification select 4) > 1) then {
 						_text = format ["%1 (x%2)",_text,_notification select 4];
 					};
-					
+
 					// show the notification
 					_ctrl = _this select 0 select 0;
 					_ctrl ctrlSetText _text;
@@ -57,12 +57,12 @@ if (isNil "cTabProcessNotificationsPFH" && !(isNil "cTabIfOpen") && count cTabNo
 					_ctrl ctrlSetFade 0;
 					_ctrl ctrlCommit 0;
 					_ctrl ctrlShow true;
-					
+
 					// bring the control to the front. Enable is required before focus can be set
 					_ctrl ctrlEnable true;
 					ctrlSetFocus _ctrl;
 					_ctrl ctrlEnable false;
-					
+
 					// make the control fade out
 					_ctrl ctrlSetFade 1;
 					_ctrl ctrlCommit _decayTime;

@@ -18,7 +18,7 @@
  * Public: No
  */
 params ["_appID","_notification","_decayTime"];
-private ["_done","_decayTime"];
+private ["_time", "_done"];
 
 _time = [] call cTab_fnc_currentTime;
 _done = false;

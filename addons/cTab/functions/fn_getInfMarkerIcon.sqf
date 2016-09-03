@@ -31,11 +31,11 @@ if (leader(_unit) isEqualTo _unit) exitWith {
 };
 // This appears to be the most consistent way to detect that a weapon is an
 // MG of some sort. These pictures are the overlays for the BIS team hud.
-if (getText(configFile >> "CfgWeapons" >> primaryWeapon(_unit) >> "UIPicture") == "\a3\weapons_f\data\ui\icon_mg_ca.paa") exitWith {
+if (getText(configFile >> "CfgWeapons" >> primaryWeapon(_unit) >> "UIPicture") isEqualTo "\a3\weapons_f\data\ui\icon_mg_ca.paa") exitWith {
 	"\A3\ui_f\data\map\vehicleicons\iconManMG_ca.paa"
 };
 // Do something similar for launchers.
-if (getText(configFile >> "CfgWeapons" >> secondaryWeapon(_unit) >> "UIPicture") == "\a3\weapons_f\data\ui\icon_at_ca.paa") exitWith {
+if (getText(configFile >> "CfgWeapons" >> secondaryWeapon(_unit) >> "UIPicture") isEqualTo "\a3\weapons_f\data\ui\icon_at_ca.paa") exitWith {
 	"\A3\ui_f\data\map\vehicleicons\iconManAT_ca.paa"
 };
 "\A3\ui_f\data\map\vehicleicons\iconMan_ca.paa"

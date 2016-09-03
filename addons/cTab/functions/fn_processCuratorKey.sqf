@@ -32,7 +32,7 @@ _processKeys = {
 		_mods = _value select 1;
 		_handler = _value select 2;
 
-		if ((_key_pressed isEqualTo _pressed select 1) and {(_mods select 0) isEqualTo (_pressed select 2)} and {(_mods select 1) isEqualTo  (_pressed select 3)} and {(_mods select 2) isEqualTo (_pressed select 4)}) exitWith {
+		if ((_key_pressed isEqualTo _pressed select 1) and {(_mods select 0) isEqualTo (_pressed select 2)} and {(_mods select 1) isEqualTo (_pressed select 3)} and {(_mods select 2) isEqualTo (_pressed select 4)}) exitWith {
 			_result = call _handler;
 		};
 	};

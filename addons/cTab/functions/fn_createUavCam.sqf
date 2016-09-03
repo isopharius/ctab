@@ -23,7 +23,7 @@
 		[str _uavVehicle,[[0,"rendertarget8"],[1,"rendertarget9"]]] call cTab_fnc_createUavCam;
 */
 
-params ["_data",["_uavCams",""]];
+params ["_data", "_uavCams"];
 private ["_renderTarget","_seat","_uav","_seatName","_camPosMemPt","_camDirMemPt","_cam"];
 
 _uav = objNull;
@@ -61,7 +61,7 @@ if (!alive _uav) exitWith {false};
 		_camDirMemPt = getText (configFile >> "CfgVehicles" >> typeOf _uav >> "uavCamera" + _seatName + "Dir");
 	};
 	// If memory points could be retrieved, create camera
-	if ((_camPosMemPt != "") && (_camDirMemPt != "")) then {
+	if ((_camPosMemPt != "") && {(_camDirMemPt != "")}) then {
 		_cam = "camera" camCreate [0,0,0];
 		_cam attachTo [_uav,[0,0,0],_camPosMemPt];
 		// set up cam on render target

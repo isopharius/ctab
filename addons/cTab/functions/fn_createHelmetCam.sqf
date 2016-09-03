@@ -70,7 +70,6 @@ if (!isNil "cTabHcams") then {
 if (!isNil "cTabHcams") exitWith {true};
 
 _target = "Sign_Sphere10cm_F" createVehicleLocal [0,0,0];
-_target setPos (position player);
 hideObject _target;
 _target attachTo [_newHost,_targetOffSet];
 

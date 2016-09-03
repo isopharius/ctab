@@ -188,7 +188,7 @@ if (isNil "_mode") then {
 				};
 				[IDC_CTAB_NOTIFICATION] // default
 			};
-			if (_displayItems != []) then {
+			if !(_displayItems isEqualTo []) then {
 				_btnActCtrl = _display displayCtrl IDC_CTAB_BTNACT;
 				_displayItemsToShow = [];
 
@@ -521,7 +521,7 @@ if (isNil "_mode") then {
 } forEach _settings;
 
 // update scale and world position if we have to. If so, fill in the blanks and make the changes
-if ((!isNil "_targetMapScale") || (!isNil "_targetMapWorldPos")) then {
+if ((!isNil "_targetMapScale") || {(!isNil "_targetMapWorldPos")}) then {
 	if (isNull _targetMapCtrl) then {
 		_targetMapName = [_displayName,"mapType"] call cTab_fnc_getSettings;
 		_mapTypes = [_displayName,"mapTypes"] call cTab_fnc_getSettings;
@@ -542,7 +542,7 @@ if ((!isNil "_targetMapScale") || (!isNil "_targetMapWorldPos")) then {
 // now hide the "Loading" control since we are done
 if (!isNull _loadingCtrl) then {
 	// move mouse cursor to the center of the screen if its a dialog
-	if (_interfaceInit && _isDialog) then {
+	if (_interfaceInit && {_isDialog}) then {
 		_ctrlPos = ctrlPosition _loadingCtrl;
 		// put the mouse position in the center of the screen
 		_mousePos = [(_ctrlPos select 0) + ((_ctrlPos select 2) / 2),(_ctrlPos select 1) + ((_ctrlPos select 3) / 2)];
@@ -558,6 +558,8 @@ if (!isNull _loadingCtrl) then {
 };
 
 // call notification system
-if (_interfaceInit) then {[] call cTab_fnc_processNotifications};
+if (_interfaceInit) then {
+	[] call cTab_fnc_processNotifications
+};
 
 true

@@ -60,11 +60,10 @@ _drawText = cTabBFTtxt;
 			};
 		};
 		// Draw on anything but TAD
-		call {
-			if (_veh != _playerVehicle) exitWith {
-				// player is not sitting in this vehicle
-				_ctrlScreen drawIcon [_x select 1,cTabColorBlue,_pos,cTabIconSize,cTabIconSize,0,_text,0,cTabTxtSize,"TahomaB","right"];
-			};
+		if (_veh != _playerVehicle) then {
+			// player is not sitting in this vehicle
+			_ctrlScreen drawIcon [_x select 1,cTabColorBlue,_pos,cTabIconSize,cTabIconSize,0,_text,0,cTabTxtSize,"TahomaB","right"];
+		} else {
 			if (group _veh != _playerGroup) then {
 				// player is not in the same group as this vehicle
 				_ctrlScreen drawIcon ["\A3\ui_f\data\map\Markers\System\dummy_ca.paa",cTabColorBlue,_pos,cTabIconSize,cTabIconSize,0,_text,0,cTabTxtSize,"TahomaB","right"];
@@ -125,20 +124,20 @@ _drawText = cTabBFTtxt;
 				if (_mountedIndex != -1) then {
 					_mountedLabels set [_mountedIndex + 1,(_mountedLabels select (_mountedIndex + 1)) + "/" + (_x select 4)];
 				} else {
-					0 = _mountedLabels pushBack _veh;
-					0 = _mountedLabels pushBack (_x select 4);
+					_mountedLabels pushBack _veh;
+					_mountedLabels pushBack (_x select 4);
 				};
 			};
 		};
 		if (_veh != (_x select 0)) exitWith {
 			// the unit _does_ sit in a vehicle
 			_mountedIndex = _mountedLabels find _veh;
-			if (_mountedIndex != -1 && _drawText) then {
+			if (_mountedIndex != -1 && {_drawText}) then {
 				_mountedLabels set [_mountedIndex + 1,(_mountedLabels select (_mountedIndex + 1)) + "/" + (_x select 4)];
 			} else {
-				0 = _mountedLabels pushBack _veh;
+				_mountedLabels pushBack _veh;
 				if  (_drawText) then {
-					0 = _mountedLabels pushBack (_x select 4);
+					_mountedLabels pushBack (_x select 4);
 				};
 				if (_veh != _playerVehicle) then {
 					_ctrlScreen drawIcon ["\A3\ui_f\data\map\VehicleIcons\iconmanvirtual_ca.paa",cTabColorBlue,getPosWorld _veh,cTabIconSize,cTabIconSize,direction _veh,"",0,cTabTxtSize,"TahomaB","right"];
@@ -154,7 +153,7 @@ _drawText = cTabBFTtxt;
 } count cTabBFTmembers;
 
 // ------------------ ADD LABEL TO VEHICLES WITH MOUNTED GROUPS / MEMBERS ------------------
-if (_drawText && !(_mountedLabels isEqualTo [])) then {
+if (_drawText && {!(_mountedLabels isEqualTo [])}) then {
 	for "_i" from 0 to (count _mountedLabels - 2) step 2 do {
 		_veh = _mountedLabels select _i;
 		if (_veh != _playerVehicle) then {

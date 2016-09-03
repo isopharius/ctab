@@ -34,11 +34,10 @@
 		[[1714.35,5716.82],0,0,0,"12:00"] call cTab_fnc_translateUserMarker;
 */
 
-params ["_pos"];
-private ["_markerIcon","_texture1","_markerSize","_texture2","_markerDir","_dir","_text","_align"];
+params ["_pos", "_markerIcon", "_markerSize", "_markerDir", "_text"];
+private ["_texture1","_texture2","_dir","_align"];
 
 _color = cTabColorRed;
-_markerIcon = _this select 1;
 _texture1 = call {
 	if (_markerIcon isEqualTo 0) exitWith {"\A3\ui_f\data\map\markers\nato\o_inf.paa"};
 	if (_markerIcon isEqualTo 1) exitWith {"\A3\ui_f\data\map\markers\nato\o_mech_inf.paa"};
@@ -72,7 +71,6 @@ _texture1 = call {
 	""
 };
 
-_markerSize = _this select 2;
 _texture2 = call {
 	if (_markerSize isEqualTo 0) exitWith {""};
 	if (_markerSize isEqualTo 1) exitWith {"\A3\ui_f\data\map\markers\nato\group_0.paa"};
@@ -82,7 +80,6 @@ _texture2 = call {
 	""
 };
 
-_markerDir = _this select 3;
 _dir = call {
 	if (_markerDir isEqualTo 0) exitWith {400};
 	if (_markerDir isEqualTo 1) exitWith {0};
@@ -96,7 +93,6 @@ _dir = call {
 	700
 };
 
-_text = _this select 4;
-_align = if ((_dir > 0) && (_dir < 180)) then {"left"} else {"right"};
+_align = if ((_dir > 0) && {(_dir < 180)}) then {"left"} else {"right"};
 
 [_pos,_texture1,_texture2,_dir,_color,_text,_align]
