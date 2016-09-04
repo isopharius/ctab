@@ -33,7 +33,7 @@ private ["_marker","_pos","_type","_size","_icon","_colorType","_color","_brush"
 	} else {
 		_color = getArray(configFile/"CfgMarkerColors"/_colorType/"color");
 	};
-	if (typeName (_color select 0) isEqualTo "STRING") then {
+	if ((_color select 0) isEqualType "") then {
 		_color = [
 			call compile (_color select 0),
 			call compile (_color select 1),

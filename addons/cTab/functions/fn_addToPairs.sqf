@@ -22,17 +22,14 @@
 	[["greetings",["Hello!","Hi!"]],["rudewords",""]] = [[["greetings","Hello!"],["rudewords",""]],"greetings","Hi!"] call BIS_fnc_addToPairs;
 */
 
-#define SCALAR		(typeName 123)
-#define ARRAY		(typeName [])
-
 params [["_pairs",[],[[]]],["_key","",[""]],["_add",1]];
-private ["_copy","_index","_value","_tValue","_tAdd","_return"];
+private ["_copy","_index","_value","_return"];
 
 _index  = -1;
 _return = "";
 
 {
-	if (typeName _x != typeName []) exitWith
+	if !(_x isEqualType []) exitWith
 	{
 		["Every item in the pair array must be an array!"] call BIS_fnc_error;
 		_index = -2;
@@ -47,7 +44,7 @@ _return = "";
 		["Key cannot be nil!"] call BIS_fnc_error;
 		_index = -2;
 	};
-	if (typeName(_x select 0) != typeName "") exitWith
+	if !((_x select 0) isEqualType "") exitWith
 	{
 		["Key must be a string!"] call BIS_fnc_error;
 		_index = -2;
@@ -79,17 +76,15 @@ else
 {
 	call
 	{
-		_tValue = typeName _value;
-		_tAdd = typeName _add;
-		if ((_tValue isEqualTo "SCALAR" && {_tAdd isEqualTo "SCALAR"}) || {(_tValue isEqualTo "ARRAY" && {_tAdd isEqualTo "ARRAY"})}) exitWith
+		if ((_value isEqualType 0 && {_add isEqualType 0}) || {(_value isEqualType [] && {_add isEqualType []})}) exitWith
 		{
 			_return = _value + _add;
 		};
-		if (_tValue isEqualTo "ARRAY") exitWith
+		if (_value isEqualType []) exitWith
 		{
 			_return = _value + [_add];
 		};
-		if (_tAdd isEqualTo "ARRAY") then
+		if (_add isEqualType []) then
 		{
 			_return = _add + [_value];
 		} else {

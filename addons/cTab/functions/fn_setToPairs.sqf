@@ -20,7 +20,7 @@ _value	= [_this,2,1] call bis_fnc_param;
 _index  = -1;
 
 {
-	if (typeName _x != typeName []) exitWith
+	if !(_x isEqualType []) exitWith
 	{
 		["Every item in the pair array must be an array!"] call BIS_fnc_error;
 		_index = -2;
@@ -35,7 +35,7 @@ _index  = -1;
 		["Key cannot be nil!"] call BIS_fnc_error;
 		_index = -2;
 	};
-	if (typeName(_x select 0) != typeName "") exitWith
+	if !((_x select 0) isEqualType "") exitWith
 	{
 		["Key must be a string!"] call BIS_fnc_error;
 		_index = -2;
