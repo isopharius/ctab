@@ -1,8 +1,10 @@
-      			if (!isNull (findDisplay 1755424)) then {
-					_wps = waypoints _pgroup;
-					_wp = currentWaypoint _pgroup;
-					_posa = [getPosWorld _unit];
-					_types = ["None"];
+      			_display = allDisplays select 0;
+      			if (!isNull _display) then {
+
+					private _wps = waypoints _pgroup;
+					private _wp = currentWaypoint _pgroup;
+					private _posa = [getPosWorld _unit];
+					private _types = ["None"];
 
 					if ((count _wps > 1) && {(_wp < count _wps)}) then
 					{

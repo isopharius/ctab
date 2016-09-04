@@ -11,8 +11,8 @@
 class cTab_FBCB2_dlg {
 	idd = 1775144;
 	movingEnable = true;
-	onLoad = "_this call cTab_fnc_onIfOpen;";
-	onUnload = "[] call cTab_fnc_onIfclose;";
+	onLoad = "_this call cTab_fnc_onIfOpen; [(objectParent player)] spawn cTab_fnc_waypoints_load";
+	onUnload = "call cTab_fnc_onIfclose; call cTab_fnc_waypoints_unload";
 	onKeyDown = "_this call cTab_fnc_onIfKeyDown;";
 	objects[] = {};
 	class controlsBackground {
@@ -29,7 +29,8 @@ class cTab_FBCB2_dlg {
 			w = pxToScreen_W(cTab_GUI_FBCB2_SCREEN_CONTENT_W);
 			h = pxToScreen_H(cTab_GUI_FBCB2_SCREEN_CONTENT_H);
 			onDraw = "nop = _this call cTabOnDrawbftVeh;";
-			onMouseButtonDblClick = "_ok = [3300,_this] execVM '\cTab\shared\cTab_markerMenu_load.sqf';";
+      		onMouseButtonDown = "[""onMapClick"", _this] call cTab_fnc_waypoints_add";
+			onMouseButtonDblClick = "[3300, _this] call cTab_fnc_markerMenu_load;";
 			onMouseMoving = "cTabCursorOnMap = _this select 3;cTabMapCursorPos = _this select 0 ctrlMapScreenToWorld [_this select 1,_this select 2];";
 			maxSatelliteAlpha = 10000;
 			alphaFadeStartScale = 10;

@@ -19,8 +19,8 @@
 class cTab_Android_dlg {
 	idd = 177382;
 	movingEnable = true;
-	onLoad = "_this call cTab_fnc_onIfOpen;";
-	onUnload = "[] call cTab_fnc_onIfclose;";
+	onLoad = "_this call cTab_fnc_onIfOpen; [(vehicle player)] spawn cTab_fnc_waypoints_load";
+	onUnload = "call cTab_fnc_onIfclose; call cTab_fnc_waypoints_unload";
 	onKeyDown = "_this call cTab_fnc_onIfKeyDown;";
 	objects[] = {};
 	class controlsBackground
@@ -29,7 +29,7 @@ class cTab_Android_dlg {
 		class screen: cTab_android_RscMapControl
 		{
 			onDraw = "nop = _this call cTabOnDrawbftAndroid;";
-			onMouseButtonDblClick = "_ok = [3300,_this] execVM '\cTab\shared\cTab_markerMenu_load.sqf';";
+      		onMouseButtonDown = "[""onMapClick"", _this] call cTab_fnc_waypoints_add";
 			onMouseMoving = "cTabCursorOnMap = _this select 3;cTabMapCursorPos = _this select 0 ctrlMapScreenToWorld [_this select 1,_this select 2];";
 		};
 		class screenTopo: screen

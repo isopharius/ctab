@@ -27,7 +27,6 @@
 params ["_encryptionKey","_markerIndex","_transactionId"];
 private ["_userMarkerList","_removeIndex"];
 
-call {
 	// If received on the server
 	if (isServer) exitWith {
 		if (isNil "_transactionId") then {
@@ -55,10 +54,11 @@ call {
 				};
 			};
 		};
+		true
 	};
 
 	// If received on a client, sent by the server
-	if (hasInterface && !isNil "_transactionId") exitWith {
+	if (hasInterface && {!isNil "_transactionId"}) exitWith {
 		call {
 			if (cTab_userMarkerTransactionId isEqualTo _transactionId) exitWith {};
 			if !(cTab_userMarkerTransactionId isEqualTo (_transactionId -1)) exitWith {
@@ -87,12 +87,11 @@ call {
 				};
 			};
 		};
+		true
 	};
 
 	// If received on a client, to be sent to the server
 	if (hasInterface) then {
 		_this remoteExecCall ["cTab_fnc_deleteUserMarker",2,false];
+		true
 	};
-};
-
-true

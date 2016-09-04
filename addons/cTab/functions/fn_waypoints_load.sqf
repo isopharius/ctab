@@ -1,5 +1,5 @@
-			_pgroup = group player;
-     		_unit = _this select 0;
+			params ["_unit"];
+			private _pgroup = group player;
 
 			for [{_i=0},{_i<10},{_i=_i+1}] do
 			{

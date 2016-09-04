@@ -1,27 +1,27 @@
 /*
 	Name: cTab_fnc_setInterfacePosition
-	
+
 	Author(s):
 		Gundy
-	
+
 	Description:
 		Move the whole interface by a provided offset
-	
+
 	Parameters:
 		0: STRING - uiNamespace variable name of interface
 		1: ARRAY  - offset in the form of [x,y]
-	
+
 	Returns:
 		BOOLEAN - TRUE
-	
+
 	Example:
 		["cTab_Tablet_dlg",[0.2,0.1]] call cTab_fnc_setInterfacePosition;
 */
 
-private ["_displayName","_xOffset","_yOffset","_display","_isDialog","_backgroundCtrl","_backgroundClassName","_displayConfigContainers","_displayConfigClasses","_idc","_ctrl","_ctrlPosition"];
+private ["_xOffset","_yOffset","_display","_isDialog","_backgroundCtrl","_backgroundClassName","_displayConfigContainers","_displayConfigClasses","_idc","_ctrl","_ctrlPosition"];
 disableSerialization;
 
-_displayName = _this select 0;
+params ["_displayName"];
 _xOffset = _this select 1 select 0;
 _yOffset = _this select 1 select 1;
 _display = uiNamespace getVariable _displayName;

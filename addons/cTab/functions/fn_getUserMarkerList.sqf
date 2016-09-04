@@ -30,12 +30,12 @@
 		[[userMarkerList],157] call cTab_fnc_getUserMarkerList;
 */
 
-call {
 	// Send request to Server
 	if (count _this isEqualTo 0) exitWith {
 		if (hasInterface && !isServer) then {
 			[player] remoteExecCall ["cTab_fnc_getUserMarkerList",2,false];
 		};
+		true
 	};
 
 	// Request received by the server to send the current list, make sure its not a client at the same time
@@ -44,6 +44,7 @@ call {
 		if (isServer && !hasInterface && (cTab_userMarkerTransactionId >= 0)) then {
 			[cTab_userMarkerLists,cTab_userMarkerTransactionId] remoteExecCall ["cTab_fnc_getUserMarkerList",_this select 0,false];
 		};
+		true
 	};
 
 	// Otherwise this is the list and transaction ID received by the client
@@ -51,6 +52,5 @@ call {
 	cTab_userMarkerTransactionId = _this select 1;
 
 	if (hasInterface) then {call cTab_fnc_updateUserMarkerList;};
-};
 
-true
+	true

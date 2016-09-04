@@ -16,8 +16,8 @@ class cTab_microDAGR_dlg
 {
 	idd = 1776134;
 	movingEnable = true;
-	onLoad = "_this call cTab_fnc_onIfOpen;";
-	onUnload = "[] call cTab_fnc_onIfclose;";
+	onLoad = "_this call cTab_fnc_onIfOpen; [(vehicle player)] spawn cTab_fnc_waypoints_load";
+	onUnload = "call cTab_fnc_onIfclose; call cTab_fnc_waypoints_unload";
 	onKeyDown = "_this call cTab_fnc_onIfKeyDown;";
 	objects[] = {};
 	class controlsBackground
@@ -25,6 +25,7 @@ class cTab_microDAGR_dlg
 		class screen: cTab_microDAGR_RscMapControl
 		{
 			onDraw = "nop = _this call cTabOnDrawbftmicroDAGRdlg;";
+      		onMouseButtonDown = "[""onMapClick"", _this] call cTab_fnc_waypoints_add";
 			onMouseMoving = "cTabMapCursorPos = _this select 0 ctrlMapScreenToWorld [_this select 1,_this select 2];";
 			// set initial map scale
 			scaleDefault = "(missionNamespace getVariable 'cTabMapScale') * 0.86 / (safezoneH * 0.8)";

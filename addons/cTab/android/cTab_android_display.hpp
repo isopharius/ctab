@@ -21,7 +21,8 @@ class cTab_Android_dsp {
 	duration = 10e10;
 	fadeIn = 0;
 	fadeOut = 0;
-	onLoad = "_this call cTab_fnc_onIfOpen;";
+	onLoad = "_this call cTab_fnc_onIfOpen; [(vehicle player)] spawn cTab_fnc_waypoints_load";
+	onUnload = "call cTab_fnc_waypoints_unload";
 	objects[] = {};
 	class controlsBackground
 	{

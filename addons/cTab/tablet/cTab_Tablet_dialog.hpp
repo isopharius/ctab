@@ -24,7 +24,7 @@ class cTab_Tablet_dlg {
 	idd = 1775154;
 	movingEnable = true;
 	onLoad = "_this call cTab_fnc_onIfOpen;";
-	onUnload = "[] call cTab_fnc_onIfclose;";
+	onUnload = "call cTab_fnc_onIfclose;";
 	onKeyDown = "_this call cTab_fnc_onIfKeyDown;";
 	objects[] = {};
 	class controlsBackground {
@@ -69,7 +69,10 @@ class cTab_Tablet_dlg {
 		{
 			idc = IDC_CTAB_SCREEN;
 			onDraw = "nop = _this call cTabOnDrawbft;";
-			onMouseButtonDblClick = "_ok = [3300,_this] execVM '\cTab\shared\cTab_markerMenu_load.sqf';";
+			onLoad = "[(vehicle player)] spawn cTab_fnc_waypoints_load";
+			onUnload = "call cTab_fnc_waypoints_unload";
+      		onMouseButtonDown = "[""onMapClick"", _this] call cTab_fnc_waypoints_add";
+			onMouseButtonDblClick = "[3300, _this] call cTab_fnc_markerMenu_load;";
 			onMouseMoving = "cTabCursorOnMap = _this select 3;cTabMapCursorPos = _this select 0 ctrlMapScreenToWorld [_this select 1,_this select 2];";
 		};
 		class screenTopo: screen

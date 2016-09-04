@@ -20,11 +20,11 @@
 
 #include "\cTab\shared\cTab_gui_macros.hpp"
 
-private ["_type","_displayName","_display","_idcToShow","_control","_controlPos","_screenPos","_screenEdgeX","_screenEdgeY","_controlEdgeX","_controlEdgeY"];
+private ["_displayName","_display","_idcToShow","_control","_controlPos","_screenPos","_screenEdgeX","_screenEdgeY","_controlEdgeX","_controlEdgeY"];
 
 disableSerialization;
 
-_type = _this select 0;
+params ["_type"];
 _displayName = cTabIfOpen select 1;
 _display = (uiNamespace getVariable _displayName);
 

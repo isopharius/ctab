@@ -35,7 +35,8 @@ class CfgFunctions
 			class getSettings{};
 			class getUserMarkerList{};
 			class isDialog{};
-			class lockUavCamTo{}
+			class lockUavCamTo{};
+			class markerMenu_load{};
 			class onIfKeyDown{};
 			class onIfClose{};
 			class onIfOpen{};

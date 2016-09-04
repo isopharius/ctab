@@ -4,12 +4,3 @@
 			deleteMarkerLocal format["mk_wp_lnk%1", _i];
 			deleteMarkerLocal format["mk_wp_cir%1", _i];
 		};
-
-		if (!isNil "last_onmapsclick") then
-		{
-			onMapSingleClick last_onmapsclick;
-		}
-		else
-		{
-			onMapSingleClick "";
-		};
