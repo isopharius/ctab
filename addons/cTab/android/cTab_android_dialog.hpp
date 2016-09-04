@@ -30,6 +30,7 @@ class cTab_Android_dlg {
 		{
 			onDraw = "nop = _this call cTabOnDrawbftAndroid;";
       		onMouseButtonDown = "[""onMapClick"", _this] call cTab_fnc_waypoints_add";
+			onMouseButtonDblClick = "[3300, _this] call cTab_fnc_markerMenu_load;";
 			onMouseMoving = "cTabCursorOnMap = _this select 3;cTabMapCursorPos = _this select 0 ctrlMapScreenToWorld [_this select 1,_this select 2];";
 		};
 		class screenTopo: screen

@@ -26,6 +26,7 @@ class cTab_TAD_dlg
 			idc = IDC_CTAB_SCREEN;
 			onDraw = "nop = _this call cTabOnDrawbftTADdialog;";
       		onMouseButtonDown = "[""onMapClick"", _this] call cTab_fnc_waypoints_add";
+			onMouseButtonDblClick = "[3300,_this] call cTab_fnc_markerMenu_load;";
 			onMouseMoving = "cTabCursorOnMap = _this select 3;cTabMapCursorPos = _this select 0 ctrlMapScreenToWorld [_this select 1,_this select 2];";
 		};
 		class screenTopo: screen
@@ -38,6 +39,7 @@ class cTab_TAD_dlg
 			idc = IDC_CTAB_SCREEN_BLACK;
 			onDraw = "nop = _this call cTabOnDrawbftTADdialog;";
       		onMouseButtonDown = "[""onMapClick"", _this] call cTab_fnc_waypoints_add";
+			onMouseButtonDblClick = "[3300,_this] call cTab_fnc_markerMenu_load;";
 			onMouseMoving = "cTabCursorOnMap = _this select 3;cTabMapCursorPos = _this select 0 ctrlMapScreenToWorld [_this select 1,_this select 2];";
 		};
 	};
