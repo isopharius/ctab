@@ -76,7 +76,7 @@ else
 {
 	call
 	{
-		if ((_value isEqualType 0 && {_add isEqualType 0}) || {(_value isEqualType [] && {_add isEqualType []})}) exitWith
+		if ((_value isEqualType 0 && {_add isEqualType 0}) || (_value isEqualType [] && {_add isEqualType []})) exitWith
 		{
 			_return = _value + _add;
 		};

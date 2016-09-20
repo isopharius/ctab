@@ -17,7 +17,7 @@
 		[getPos player] call cTab_fnc_lockUavCamTo;
 */
 
-private ["_displayName","_uav","_data","_camPos"];
+private ["_displayName","_uav","_data"];
 
 _displayName = cTabIfOpen select 1;
 _uav = objNull;
@@ -29,7 +29,7 @@ _data = [_displayName,"uavCam"] call cTab_fnc_getSettings;
 } count cTabUAVlist;
 
 if !(isNull _uav) exitWith {
-	_camPos = _this select 0;
+	params ["_camPos"];
 	if (count _camPos isEqualTo 2) then {
 		_camPos pushBack (getTerrainHeightASL _camPos);
 	};

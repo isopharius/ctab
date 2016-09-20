@@ -36,7 +36,7 @@ private ["_userMarkerList","_removeIndex"];
 			// try to find the marker to be removed
 			_removeIndex = -1;
 			{
-				if (_x select 0 isEqualTo _markerIndex) exitWith {_removeIndex = _forEachIndex};
+				if ((_x select 0) isEqualTo _markerIndex) exitWith {_removeIndex = _forEachIndex};
 			} forEach _userMarkerList;
 
 			// if the marker could be found, remove it
@@ -74,7 +74,7 @@ private ["_userMarkerList","_removeIndex"];
 			// try to find the marker to be removed
 			_removeIndex = -1;
 			{
-				if (_x select 0 isEqualTo _markerIndex) exitWith {_removeIndex = _forEachIndex};
+				if ((_x select 0) isEqualTo _markerIndex) exitWith {_removeIndex = _forEachIndex};
 			} forEach _userMarkerList;
 
 			// if the marker could be found, remove it

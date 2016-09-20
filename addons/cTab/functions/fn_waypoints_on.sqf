@@ -1,6 +1,7 @@
+				disableSerialization;
       			_display = allDisplays select 0;
-      			if (!isNull _display) then {
 
+      			waitUntil {
 					private _wps = waypoints _pgroup;
 					private _wp = currentWaypoint _pgroup;
 					private _posa = [getPosWorld _unit];
@@ -42,9 +43,9 @@
 						};
 					};
 
-	               "mk_wp_dir" setMarkerDirLocal (getDir _unit)-90;
-	               "mk_wp_dir" setMarkerPosLocal (getPosWorld _unit);
+	               	//"mk_wp_dir" setMarkerDirLocal (getDir _unit)-90;
+	               	//"mk_wp_dir" setMarkerPosLocal (getPosWorld _unit);
 
 					Sleep 0.1;
-					call cTab_fnc_waypoints_on;
+					(isNull _display)
 				};

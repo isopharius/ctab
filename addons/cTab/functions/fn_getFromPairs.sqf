@@ -1,30 +1,28 @@
 /*
 	Author: Jiri Wainar, modified by Gundy to fix return of "nil" (line 63), see http://feedback.arma3.com/view.php?id=20643
-
 	Description:
 	Searches the associative array for the 1st occurance of the key string and returns the value associated with it.
-
 	Syntax:
 	_value = [_associativeArray:array,_key:string,_defaultValue] call cTab_fnc_getFromPairs;
-
 	Example:
 	2 = [[["apple",3],["pear",2]],"pear"] call cTab_fnc_getFromPairs;
-
 	Returns:
 	* if found: value stored under the key
 	* if not found: nil or _defaultValue
 */
 
-params [["_pairs",[],[[]]],["_key","",[""]]];
-private ["_default","_value"];
+private"_value";
+
+private _pairs = [_this,0,[],[[]]] call bis_fnc_param;
+private _key = [_this,1,"",[""]] call bis_fnc_param;
 
 if (count _this > 2) then
 {
-	_default = [_this,2] call bis_fnc_param;
+	private _default = [_this,2] call bis_fnc_param;
 }
 else
 {
-	_default = nil;
+	private _default = nil;
 };
 
 
@@ -51,7 +49,7 @@ else
 	};
 
 
-	if (_key isEqualTo (_x select 0)) exitwith
+	if (_key == (_x select 0)) exitwith
 	{
 		_value = _x select 1;
 	};

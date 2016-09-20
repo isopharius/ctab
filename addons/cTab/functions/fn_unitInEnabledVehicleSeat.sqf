@@ -22,12 +22,10 @@
 		_playerHasCtabItem = [player,["ItemcTab","ItemAndroid","ItemMicroDAGR"]] call cTab_fnc_unitInEnabledVehicleSeat;
 */
 
-private ["_return","_unit","_vehicle","_type","_typeClassList","_cargoIndex","_cargoCompartments","_cargoIsCoDriver","_transportSoldier"];
+private ["_return","_typeClassList","_cargoIndex","_cargoCompartments","_cargoIsCoDriver","_transportSoldier"];
 
+params ["_unit", "_vehicle", "_type"];
 _return = false;
-_unit = _this select 0;
-_vehicle = _this select 1;
-_type = _this select 2;
 
 // Check if vehicle is a parachute, if so, return false
 if (_vehicle isKindOf "ParachuteBase") exitWith {false};
@@ -65,7 +63,7 @@ call {
 				};
 			};
 			if (_type isEqualTo "TAD") then {
-				if (_unit isEqualTo _vehicle call cTab_fnc_getCopilot) then {_return = true};
+				if (_unit isEqualTo (_vehicle call cTab_fnc_getCopilot)) then {_return = true};
 			};
 		};
 	};

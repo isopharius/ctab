@@ -100,7 +100,7 @@ class cTab_TAD_dlg
 		class pwrbtn: cTab_RscButton_TAD_DNO
 		{
 			idc = IDC_CTAB_BTNMAIN;
-			onMouseButtonUp = "if (_this select 1 isEqualTo 0) then {['cTab_TAD_dlg'] call cTab_fnc_toggleNightMode} else {if (_this select 1 isEqualTo 1) then {[] call cTab_fnc_close};}";
+			onMouseButtonUp = "if ((_this select 1) isEqualTo 0) then {['cTab_TAD_dlg'] call cTab_fnc_toggleNightMode} else {if (_this select 1 isEqualTo 1) then {[] call cTab_fnc_close};}";
 			tooltip = "left-click: Toggle DAY / NIGHT mode; right-click: Close interface";
 		};
 		class btnSymInc: cTab_RscButton_TAD_SYM_INC

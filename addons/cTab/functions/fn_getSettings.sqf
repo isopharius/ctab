@@ -41,7 +41,7 @@ if (isNil "_groupProperties") then {_groupProperties = [];};
 
 // Return value of requested property
 _property = _this select 1;
-if (count _this isEqualTo 2) exitWith {
+if ((count _this) isEqualTo 2) exitWith {
 	_value = [_groupProperties,_property] call cTab_fnc_getFromPairs;
 	if (isNil "_value") then {
 		_value = [_commonProperties,_property] call cTab_fnc_getFromPairs;
